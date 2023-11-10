@@ -29,6 +29,12 @@ public class Equipo {
 		
 		return true;
 	}
+	public void GenerarEquipo() {
+		for (int i = 0; i < 11; i++) {
+			
+		}
+		this.getJugadores().add(new Jugador("","",1,1));
+	}
 	
 	
 	public String getNombre() {
