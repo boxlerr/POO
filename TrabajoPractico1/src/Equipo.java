@@ -40,10 +40,12 @@ public class Equipo {
 		return true;
 	}
 	public void GenerarEquipo() {
+		
+		String [] posicion = {"Delantero","Arquero","Defensa","Mediocampista"};		//generar jugador random
 		for (int i = 0; i < 11; i++) {
-			
+			int aleatorio = (int)(Math.random()*4);
+			this.getJugadores().add(new Jugador("Jugador: " + i,posicion[aleatorio],i,4));
 		}
-		this.getJugadores().add(new Jugador("","",1,1));
 	}
 	
 	

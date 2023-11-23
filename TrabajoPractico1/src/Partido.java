@@ -12,7 +12,7 @@ public class Partido {
 	private static int contador=0;
 	
 	
-	public Partido(LocalDateTime fechayhora, Equipo equipo1, Equipo equipo2, int gol1, int gol2, int duracion, int id) {
+	public Partido(LocalDateTime fechayhora, Equipo equipo1, Equipo equipo2, int gol1, int gol2, int duracion) {
 		super();
 		this.fechayhora = fechayhora;
 		this.equipo1 = equipo1;
@@ -21,7 +21,7 @@ public class Partido {
 		this.gol2 = gol2;
 		this.duracion = duracion;
 		contador++;
-		this.id = id;
+		this.id = contador;
 	}
 
 
