@@ -3,6 +3,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 class Main {
+	
+	//Crear instancias de jugadores, equipos y el gestor de equipos.
+	//Realizar pruebas de todas las operaciones implementadas, cómo agregar jugadores a un equipo, buscar un jugador por nombre, eliminar un equipo, etc.
+	//Simular partidos entre equipos utilizando el método "jugarPartido".
+
 
 	public static void main(String[] args) {
 		

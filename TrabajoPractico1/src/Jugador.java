@@ -1,6 +1,11 @@
 
 public class Jugador {
 	
+	
+	//Atributos: nombre, posición, número de camiseta, edad.
+	//Métodos: getters y setters para los atributos.
+
+	
 	private String nombre;
 	private String posición;
 	private int numerodecamiseta;
