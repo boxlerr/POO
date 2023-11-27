@@ -122,13 +122,13 @@ public class GestorEquipo {
 	}
 	
 
-	// Método: Agregar un equipo a la lista.
+	//Agregar un equipo a la lista.
 	public void AgregarEquipo(Equipo nuevoEquipo) {
 		this.getEquipos().add(nuevoEquipo);
 		JOptionPane.showMessageDialog(null, "Equipo agregado exitosamente.");
 	}
 
-	// Método: Eliminar un equipo de la lista.
+	//Eliminar un equipo de la lista.
 	public void EliminarEquipo(Equipo equipoEliminar) {
 		if (this.getEquipos().contains(equipoEliminar)) {
 			this.getEquipos().remove(equipoEliminar);
@@ -138,7 +138,7 @@ public class GestorEquipo {
 		}
 	}
 
-	// Método: Obtener la cantidad total de equipos.
+	//Obtener la cantidad total de equipos.
 	public String CantidadTotalEquipos() {
 	    StringBuilder resultado = new StringBuilder("Cantidad total de equipos: " + this.getEquipos().size() + "\n");
 
@@ -153,7 +153,7 @@ public class GestorEquipo {
 
 	    return resultado.toString();
 	}
-	// Método: Obtener la lista de equipos.
+	//Obtener la lista de equipos.
 	public String ObtenerListaEquipos() {
 		StringBuilder listaEquipos = new StringBuilder("--Lista de Equipos-- \n");
 		for(Equipo equipo : equipos) {

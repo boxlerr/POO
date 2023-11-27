@@ -4,9 +4,6 @@ import javax.swing.JOptionPane;
 public class Main {
 
     public static void main(String[] args) {
-    	
-    	
-
         GestorEquipo Chiki = new GestorEquipo();
         Chiki.getEquipos().add(new Equipo("Argentina", "argentina2.png"));
         Chiki.getEquipos().add(new Equipo("Brasil", "brasil.png"));
@@ -16,10 +13,9 @@ public class Main {
         Chiki.getEquipos().add(new Equipo("Peru", "peru.png"));
         Chiki.getEquipos().add(new Equipo("Bolivia", "bolivia.png"));
         Chiki.getEquipos().add(new Equipo("Venezuela", "venezuela.png"));
-        
+
         JOptionPane.showMessageDialog(null, "Bienvenido al torneo de la Copa America");
-       
-        
+
         String[] opciones = {"Jugar partido", "Lista de Partidos", "Definir Grupos", "Buscar Equipo", "Gestión de Equipos", "Gestión de Jugadores", "Salir"};
         int opcion = 0;
         Equipo seleccionado1 = null;
@@ -59,9 +55,10 @@ public class Main {
                     Chiki.DefinirGrupos();
                     break;
                 case 3:
-                	 
+                    
+                    break;
                 case 4:
-                    // Nueva sección para gestionar equipos
+                    //sección para gestionar equipos
                     String[] opcionesGestionEquipos = {"Agregar Equipo", "Eliminar Equipo", "Cantidad Total de Equipos", "Lista de Equipos", "Salir"};
                     int opcionGestionEquipos = 0;
 
@@ -87,75 +84,68 @@ public class Main {
                                 JOptionPane.showMessageDialog(null, Chiki.ObtenerListaEquipos());
                                 break;
                             default:
-                            	JOptionPane.showMessageDialog(null, "Volviendo al menu...");
+                                JOptionPane.showMessageDialog(null, "Volviendo al menu...");
                                 break;
                         }
 
                     } while (opcionGestionEquipos != 4);
                     break;
-                case 5:               
-                	String[] equiposJugadores = new String[Chiki.getEquipos().size()];
-            	    for (int i = 0; i < equiposJugadores.length; i++) {
-            	        equiposJugadores[i] = Chiki.getEquipos().get(i).getNombre();
-            	    }
-            	    String menuJugadores = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("a.png")), equiposJugadores, equiposJugadores[0]);
-            	    seleccionado1 = Chiki.Buscar(menuJugadores);
+                case 5:
+                    //gestion de jugadores
+                    String[] opcionesGestionJugadores = {"Agregar Jugador a Equipo", "Modificar Jugador", "Eliminar Jugador", "Salir"};
+                    int opcionGestionJugadores = 0;
 
-            	    // Continuamos con el código de gestión de jugadores
-            	    String[] opcionesGestionJugadores = {"Agregar Jugador a Equipo", "Modificar Jugador", "Eliminar Jugador", "Salir"};
-            	    int opcionGestionJugadores = 0;
+                    do {
+                        opcionGestionJugadores = JOptionPane.showOptionDialog(null, "Gestión de Jugadores", null, 0, 0, null, opcionesGestionJugadores, opcionesGestionJugadores);
 
-            	    do {
-            	        opcionGestionJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Opcion"));
-            	        switch (opcionGestionJugadores) {
-                        case 0:
-                            String nombre = JOptionPane.showInputDialog("Ingrese Nombre del Jugador");
-                            String posicion = JOptionPane.showInputDialog("Ingrese Posicion del Jugador");
-                            int numeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Numero de Camiseta"));
-                            int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Edad del Jugador"));
+                        switch (opcionGestionJugadores) {
+                            case 0:
+                                String nombre = JOptionPane.showInputDialog("Ingrese Nombre del Jugador");
+                                String posicion = JOptionPane.showInputDialog("Ingrese Posicion del Jugador");
+                                int numeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Numero de Camiseta"));
+                                int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Edad del Jugador"));
 
-                            if (seleccionado1.AgregarJugador(nombre, posicion, numeroCamiseta, edad)) {
-                                JOptionPane.showMessageDialog(null, "Jugador agregado exitosamente.");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador.");
-                            }
-                            break;
-                        case 1:
-                            String nombreModificar = JOptionPane.showInputDialog("Ingrese Nombre del Jugador a Modificar");
-                            Jugador jugadorModificar = Jugador.buscarJugadorPorNombre(seleccionado1.getJugadores(), nombreModificar);
+                                if (seleccionado1.AgregarJugador(nombre, posicion, numeroCamiseta, edad)) {
+                                    JOptionPane.showMessageDialog(null, "Jugador agregado exitosamente.");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador.");
+                                }
+                                break;
+                            case 1:
+                                String nombreModificar = JOptionPane.showInputDialog("Ingrese Nombre del Jugador a Modificar");
+                                Jugador jugadorModificar = Jugador.buscarJugadorPorNombre(seleccionado1.getJugadores(), nombreModificar);
 
-                            if (jugadorModificar != null) {
-                                String nuevoNombre = JOptionPane.showInputDialog("Ingrese Nuevo Nombre");
-                                String nuevaPosicion = JOptionPane.showInputDialog("Ingrese Nueva Posicion");
-                                int nuevoNumeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nuevo Numero de Camiseta"));
-                                int nuevaEdad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nueva Edad"));
+                                if (jugadorModificar != null) {
+                                    String nuevoNombre = JOptionPane.showInputDialog("Ingrese Nuevo Nombre");
+                                    String nuevaPosicion = JOptionPane.showInputDialog("Ingrese Nueva Posicion");
+                                    int nuevoNumeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nuevo Numero de Camiseta"));
+                                    int nuevaEdad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nueva Edad"));
 
-                                jugadorModificar.modificarJugador(nuevoNombre, nuevaPosicion, nuevoNumeroCamiseta, nuevaEdad);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No se encontró el jugador a modificar.");
-                            }
-                            break;
-                        case 2:
-                            String nombreEliminar = JOptionPane.showInputDialog("Ingrese Nombre del Jugador a Eliminar");
-                            int numeroCamisetaEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Numero de Camiseta del Jugador a Eliminar"));
+                                    jugadorModificar.modificarJugador(nuevoNombre, nuevaPosicion, nuevoNumeroCamiseta, nuevaEdad);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se encontró el jugador a modificar.");
+                                }
+                                break;
+                            case 2:
+                                String nombreEliminar = JOptionPane.showInputDialog("Ingrese Nombre del Jugador a Eliminar");
+                                int numeroCamisetaEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Numero de Camiseta del Jugador a Eliminar"));
 
-                            if (Jugador.eliminarJugador(seleccionado1.getJugadores(), nombreEliminar, numeroCamisetaEliminar)) {
-                                JOptionPane.showMessageDialog(null, "Jugador eliminado exitosamente.");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No se encontró el jugador a eliminar.");
-                            }
-                            break;
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "Salir");
-                            break;
-                        default:
-                            break;
-                    }
-                } while (opcionGestionJugadores != 4);
-
-                break;
+                                if (Jugador.eliminarJugador(seleccionado1.getJugadores(), nombreEliminar, numeroCamisetaEliminar)) {
+                                    JOptionPane.showMessageDialog(null, "Jugador eliminado exitosamente.");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se encontró el jugador a eliminar.");
+                                }
+                                break;
+                            case 3:
+                                JOptionPane.showMessageDialog(null, "Salir");
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (opcionGestionJugadores != 3);
+                    break;
                 default:
-                	JOptionPane.showMessageDialog(null, "Gracias por particiar en el torneo de la Copa America");
+                    JOptionPane.showMessageDialog(null, "Gracias por participar en el torneo de la Copa America");
                     break;
             }
         } while (opcion != 6);
