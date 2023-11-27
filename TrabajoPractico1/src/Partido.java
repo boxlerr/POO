@@ -1,8 +1,6 @@
-import java.time.LocalDateTime;
-
 public class Partido {
 	
-	private LocalDateTime fechayhora;
+
 	private Equipo equipo1;
 	private Equipo equipo2;
 	private int gol1;
@@ -12,9 +10,8 @@ public class Partido {
 	private static int contador=0;
 	
 	
-	public Partido(LocalDateTime fechayhora, Equipo equipo1, Equipo equipo2, int gol1, int gol2, int duracion) {
+	public Partido(Equipo equipo1, Equipo equipo2, int gol1, int gol2, int duracion) {
 		super();
-		this.fechayhora = fechayhora;
 		this.equipo1 = equipo1;
 		this.equipo2 = equipo2;
 		this.gol1 = gol1;
@@ -27,8 +24,8 @@ public class Partido {
 
 	@Override
 	public String toString() {
-		return "Partido [fechayhora=" + fechayhora + ", equipo1=" + equipo1.getNombre() + ", equipo2=" + equipo2.getNombre() + ", gol1=" + gol1
-				+ ", gol2=" + gol2 + ", duracion=" + duracion + ", id=" + id + "]";
+		return "Partido:"  + "\nEquipo 1: " + equipo1.getNombre() + "\nequipo2: " + equipo2.getNombre() + "\nGoles Team 1: " + gol1
+				+ "\nGoles Team 2: " + gol2 + "\nDuraciòn: " + duracion + "\nId del partido" + id;
 	}
 	
 	
