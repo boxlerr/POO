@@ -32,13 +32,8 @@ public class Equipo extends Jugador{
 	}
 
 	public boolean AgregarJugador(String nombre, String posicion, int numeroCamiseta, int edad) {
-	    // Crear una nueva instancia de Jugador
 	    Jugador nuevoJugador = new Jugador(nombre, posicion, numeroCamiseta, edad);
-	    
-	    // Agregar el nuevo jugador a la lista de jugadores del equipo
 	    this.getJugadores().add(nuevoJugador);
-	    
-	    // Indicar que el jugador se agregó correctamente
 	    return true;
 	}
 }
