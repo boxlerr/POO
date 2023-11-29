@@ -65,12 +65,12 @@ public class GestorEquipo {
 				int minutos = 90;
 				
 				if (gol1 > gol2) {
-					JOptionPane.showMessageDialog(null, "Ganó! " + equipo1.getNombre());
-					this.getEquipos().remove(this.getEquipos().indexOf(equipo2));
-				} else {
-					JOptionPane.showMessageDialog(null, "Ganó! " + equipo2.getNombre());
-					this.getEquipos().remove(this.getEquipos().indexOf(equipo1));
-				}
+			        JOptionPane.showMessageDialog(null, "Ganó! " + equipo1.getNombre());
+			        this.getEquipos().remove(this.getEquipos().indexOf(equipo2));
+			    } else {
+			        JOptionPane.showMessageDialog(null, "Ganó! " + equipo2.getNombre());
+			        this.getEquipos().remove(this.getEquipos().indexOf(equipo1));
+			    }
 				
 				Partido nuevoPartido = new Partido(equipo1, equipo2, gol1, gol2, minutos);
 				this.getPartidos().add(nuevoPartido);
@@ -114,13 +114,15 @@ public class GestorEquipo {
 	}
 
 	public String verPartidos() {
-		String doparti = "Lo siento, Debes jugar para ver el historial de partidos!"; 
-		String lista = "--Lista de Partidos-- \n"; //me devolvia 2 partidos si usaba lista para retornar
-		for(Partido partido : partidos) {
-		 doparti = lista + partido + "\n";
-		}
-		return doparti ;
+	    StringBuilder lista = new StringBuilder(partidos.isEmpty() ? "Lo siento, Debes jugar para ver el historial de partidos!\n" : "--Lista de Partidos--\n");
+
+	    for (Partido partido : partidos) {
+	        lista.append(partido).append("\n");
+	    }
+
+	    return lista.toString();
 	}
+
 	
 
 	//Agregar un equipo a la lista.

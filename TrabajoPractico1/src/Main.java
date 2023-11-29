@@ -1,22 +1,26 @@
+import java.awt.BorderLayout;
+
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Main {
-
     public static void main(String[] args) {
-        GestorEquipo Chiki = new GestorEquipo();
-        Chiki.getEquipos().add(new Equipo("Argentina", "argentina2.png"));
-        Chiki.getEquipos().add(new Equipo("Brasil", "brasil.png"));
-        Chiki.getEquipos().add(new Equipo("Uruguay", "uruguay.png"));
-        Chiki.getEquipos().add(new Equipo("Chile", "chile.png"));
-        Chiki.getEquipos().add(new Equipo("Mexico", "mexico.png"));
-        Chiki.getEquipos().add(new Equipo("Peru", "peru.png"));
-        Chiki.getEquipos().add(new Equipo("Bolivia", "bolivia.png"));
-        Chiki.getEquipos().add(new Equipo("Venezuela", "venezuela.png"));
+    	GestorEquipo Chiki = new GestorEquipo();
+        Chiki.getEquipos().add(new Equipo("Argentina"));
+        Chiki.getEquipos().add(new Equipo("Brasil"));
+        Chiki.getEquipos().add(new Equipo("Uruguay"));
+        Chiki.getEquipos().add(new Equipo("Chile"));
+        Chiki.getEquipos().add(new Equipo("Mexico"));
+        Chiki.getEquipos().add(new Equipo("Peru"));
+        Chiki.getEquipos().add(new Equipo("Bolivia"));
+        Chiki.getEquipos().add(new Equipo("Venezuela"));
 
-        JOptionPane.showMessageDialog(null, "Bienvenido al torneo de la Copa America");
+        JOptionPane.showMessageDialog(null, "Bienvenido al torneo de la Copa America", "Copa America 2023", JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(Main.class.getResource("/img/americaa.png")));
 
-        String[] opciones = {"Jugar partido", "Lista de Partidos", "Definir Grupos", "Buscar Equipo", "Gestión de Equipos", "Gestión de Jugadores", "Salir"};
+        String[] opciones = {"Jugar partido", "Lista de Partidos", "Definir Grupos", "Gestión de Equipos", "Gestión de Jugadores", "Salir"};
         int opcion = 0;
         Equipo seleccionado1 = null;
 
@@ -33,15 +37,28 @@ public class Main {
                             equipos[i] = Chiki.getEquipos().get(i).getNombre();
                         }
 
-                        String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("americaa.png")), equipos, equipos[0]);
+                        String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
                         seleccionado1 = Chiki.Buscar(menu);
-                        menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("americaa.png")), equipos, equipos[0]);
+                        menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
                         seleccionado1.GenerarEquipo();
                         Equipo seleccionado2 = Chiki.Buscar(menu);
                         seleccionado2.GenerarEquipo();
-                        JOptionPane.showMessageDialog(null, seleccionado1 + "**VS**" + seleccionado2);
-                        
+
+                        // usando funcion panel por primera vez
+                        JPanel panel = new JPanel(new BorderLayout());
+                        // se agrega imagen 1
+                        JLabel labelEquipo1 = new JLabel(new ImageIcon(Main.class.getResource("/img/" + seleccionado1.getNombre() + ".png")));
+                        panel.add(labelEquipo1, BorderLayout.WEST);
+                        // se agrega texto
+                        JLabel labelVS = new JLabel("VS");
+                        panel.add(labelVS, BorderLayout.CENTER);
+                        // imagen 2
+                        JLabel labelEquipo2 = new JLabel(new ImageIcon(Main.class.getResource("/img/" + seleccionado2.getNombre() + ".png")));
+                        panel.add(labelEquipo2, BorderLayout.EAST);
+                        JOptionPane.showMessageDialog(null, panel, "Copa America 2023", JOptionPane.DEFAULT_OPTION);
+
                         Partido nuevo = Chiki.JugarPartido(seleccionado1, seleccionado2);
+                        
                         if (nuevo != null) {
                             JOptionPane.showMessageDialog(null, nuevo);
                             Chiki.getPartidos().add(nuevo);
@@ -57,9 +74,6 @@ public class Main {
                     Chiki.DefinirGrupos();
                     break;
                 case 3:
-                    
-                    break;
-                case 4:
                     //sección para gestionar equipos
                     String[] opcionesGestionEquipos = {"Agregar Equipo", "Eliminar Equipo", "Cantidad Total de Equipos", "Lista de Equipos", "Salir"};
                     int opcionGestionEquipos = 0;
@@ -70,8 +84,7 @@ public class Main {
                         switch (opcionGestionEquipos) {
                             case 0:
                                 String nombreEquipo = JOptionPane.showInputDialog("Ingrese el nombre del nuevo equipo:");
-                                String imagenEquipo = JOptionPane.showInputDialog("Ingrese el nombre de la imagen del equipo:");
-                                Equipo nuevoEquipo = new Equipo(nombreEquipo, imagenEquipo);
+                                Equipo nuevoEquipo = new Equipo(nombreEquipo);
                                 Chiki.AgregarEquipo(nuevoEquipo);
                                 break;
                             case 1:
@@ -92,7 +105,7 @@ public class Main {
 
                     } while (opcionGestionEquipos != 4);
                     break;
-                case 5:
+                case 4:
                     //gestion de jugadores
                     String[] opcionesGestionJugadores = {"Agregar Jugador a Equipo", "Modificar Jugador", "Eliminar Jugador", "Salir"};
                     int opcionGestionJugadores = 0;
@@ -150,6 +163,6 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Gracias por participar en el torneo de la Copa America");
                     break;
             }
-        } while (opcion != 6);
+        } while (opcion != 5);
     }
 }

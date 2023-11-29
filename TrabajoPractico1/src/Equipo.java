@@ -11,15 +11,13 @@ public class Equipo extends Jugador{
 	
 	private String nombre;
 	
-	private String foto;
+	
 	
 
-	public Equipo(String nombre, String foto) {
+	public Equipo(String nombre) {
 	super();
 	this.nombre = nombre;
-	
-	this.foto = foto;
-	
+		
 }
 
 	public void GenerarEquipo() {
@@ -38,16 +36,6 @@ public class Equipo extends Jugador{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getFoto() {
-		return foto;
-	}
-
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 
 	@Override
 	public String toString() {
