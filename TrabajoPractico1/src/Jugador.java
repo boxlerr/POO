@@ -21,7 +21,6 @@ public class Jugador {
     public Jugador() {
 	}
 
-	// Métodos de set individuales
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -60,20 +59,23 @@ public class Jugador {
 		this.jugadores = jugadores;
 	}
 
+	
 	public boolean AgregarJugador(String nombre, String posicion, int numerodecamiseta, int edad) {
-	    for (Jugador jugador : getJugadores()) {
+	    // Verifica si ya existe un jugador con el mismo número de camiseta
+	    for (Jugador jugador : this.getJugadores()) {
 	        if (jugador.getNumerodecamiseta() == numerodecamiseta) {
-	            JOptionPane.showMessageDialog(null, "No se pudo agregar");
+	            JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador. Ya existe un jugador con el mismo número de camiseta.");
 	            return false;
 	        }
 	    }
-	    getJugadores().add(new Jugador(nombre, posicion, numerodecamiseta, edad));
+
+	    // Añade el jugador a la lista de jugadores de la clase GestorEquipo
+	    this.getJugadores().add(new Jugador(nombre, posicion, numerodecamiseta, edad));
 	    return true;
 	}
 
 
-    // Método para modificar la información del jugador
-    public void modificarJugador(String nombre, String posicion, int numerodecamiseta, int edad) {
+	public void modificarJugadorEnGestor(String nombre, String posicion, int numerodecamiseta, int edad) {
         setNombre(nombre);
         setPosicion(posicion);
         setNumerodecamiseta(numerodecamiseta);
@@ -81,13 +83,13 @@ public class Jugador {
         JOptionPane.showMessageDialog(null, "Información del jugador modificada exitosamente.");
     }
 
-    // Método para obtener información del jugador
+    
     public String obtenerInformacion() {
         return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
                 + ", edad=" + edad + "]";
     }
 
-    // Método para buscar un jugador por nombre en una lista de jugadores
+
     public static Jugador buscarJugadorPorNombre(List<Jugador> jugadores, String nombreJugador) {
         for (Jugador jugador : jugadores) {
             if (jugador.getNombre().equalsIgnoreCase(nombreJugador)) {
@@ -96,26 +98,42 @@ public class Jugador {
         }
         return null;
     }
-    // Método para eliminar un jugador por nombre o número de camiseta
-    public static boolean eliminarJugador(List<Jugador> jugadores, String nombreJugador, int numeroCamiseta) {
-        Jugador jugadorAEliminar = null;
-        for (Jugador jugador : jugadores) {
-            if (jugador.getNombre().equalsIgnoreCase(nombreJugador) || jugador.getNumerodecamiseta() == numeroCamiseta) {
-                jugadorAEliminar = jugador;
-                break;
-            }
+    
+    public void eliminarJugador() {
+        if (this.getJugadores().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay jugadores disponibles para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if (jugadorAEliminar != null) {
-            jugadores.remove(jugadorAEliminar);
-            JOptionPane.showMessageDialog(null, "Jugador eliminado exitosamente.");
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el jugador.");
-            return false;
+        //array para cuadro de diálogo
+        String[] nombresJugadores = new String[this.getJugadores().size()];
+        for (int i = 0; i < nombresJugadores.length; i++) {
+            nombresJugadores[i] = this.getJugadores().get(i).getNombre();
+        }
+        // eligir jugador
+        String nombreJugadorEliminar = (String) JOptionPane.showInputDialog(
+                null,
+                "Seleccione un jugador para eliminar:",
+                "Eliminar Jugador",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                nombresJugadores,
+                nombresJugadores[0]);
+
+        if (nombreJugadorEliminar != null) {
+            // busca el pj
+            Jugador jugadorEliminar = Jugador.buscarJugadorPorNombre(this.getJugadores(), nombreJugadorEliminar);
+
+            if (jugadorEliminar != null) {
+                // si encuentra el pj lo borra
+                this.getJugadores().remove(jugadorEliminar);
+                JOptionPane.showMessageDialog(null, "Jugador eliminado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el jugador.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
-    // Método toString para obtener información del jugador
+    
     @Override
     public String toString() {
         return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
