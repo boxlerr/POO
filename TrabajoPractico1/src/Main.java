@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -7,15 +6,15 @@ import javax.swing.JPanel;
 
 public class Main {
     public static void main(String[] args) {
-    	GestorEquipo Chiki = new GestorEquipo();
-        Chiki.getEquipos().add(new Equipo("Argentina"));
-        Chiki.getEquipos().add(new Equipo("Brasil"));
-        Chiki.getEquipos().add(new Equipo("Uruguay"));
-        Chiki.getEquipos().add(new Equipo("Chile"));
-        Chiki.getEquipos().add(new Equipo("Mexico"));
-        Chiki.getEquipos().add(new Equipo("Peru"));
-        Chiki.getEquipos().add(new Equipo("Bolivia"));
-        Chiki.getEquipos().add(new Equipo("Venezuela"));
+        GestorEquipo torneito = new GestorEquipo();
+        torneito.getEquipos().add(new Equipo("Argentina"));
+        torneito.getEquipos().add(new Equipo("Brasil"));
+        torneito.getEquipos().add(new Equipo("Uruguay"));
+        torneito.getEquipos().add(new Equipo("Chile"));
+        torneito.getEquipos().add(new Equipo("Mexico"));
+        torneito.getEquipos().add(new Equipo("Peru"));
+        torneito.getEquipos().add(new Equipo("Bolivia"));
+        torneito.getEquipos().add(new Equipo("Venezuela"));
 
         JOptionPane.showMessageDialog(null, "Bienvenido al torneo de la Copa America", "Copa America 2023", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(Main.class.getResource("/img/americaa.png")));
@@ -27,51 +26,55 @@ public class Main {
         do {
             opcion = JOptionPane.showOptionDialog(null, "Elegir", null, 0, 0, null, opciones, opciones);
 
-            switch (opcion) {
-                case 0:
-                    if (Chiki.getEquipos().size() == 1) {
-                        JOptionPane.showMessageDialog(null, "Es el ganador!" + Chiki.getEquipos().get(0).getNombre());
+            switch (opcion) {   
+                case 0:    //jugar doparti
+                    if (torneito.getEquipos().size() == 1) {
+                        JOptionPane.showMessageDialog(null, "Es el ganador!" + torneito.getEquipos().get(0).getNombre());
                     } else {
-                        String[] equipos = new String[Chiki.getEquipos().size()];
+                        String[] equipos = new String[torneito.getEquipos().size()];
                         for (int i = 0; i < equipos.length; i++) {
-                            equipos[i] = Chiki.getEquipos().get(i).getNombre();
+                            equipos[i] = torneito.getEquipos().get(i).getNombre();
                         }
 
                         String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
-                        seleccionado1 = Chiki.Buscar(menu);
+                        seleccionado1 = torneito.Buscar(menu);
                         menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
                         seleccionado1.GenerarEquipo();
-                        Equipo seleccionado2 = Chiki.Buscar(menu);
+                        Equipo seleccionado2 = torneito.Buscar(menu);
                         seleccionado2.GenerarEquipo();
-
-                        // usando funcion panel por primera vez
+                        // usando función panel por primera vez
                         JPanel panel = new JPanel(new BorderLayout());
                         // se agrega imagen 1
-                        JLabel labelEquipo1 = new JLabel(new ImageIcon(Main.class.getResource("/img/" + seleccionado1.getNombre() + ".png")));
-                        panel.add(labelEquipo1, BorderLayout.WEST);
+                        String imagePath1 = "/img/" + seleccionado1.getNombre() + ".png";
+                        ImageIcon iconEquipo1 = loadImageIcon(imagePath1);
+                        if (iconEquipo1 != null) {
+                            JLabel labelEquipo1 = new JLabel(iconEquipo1);
+                            panel.add(labelEquipo1, BorderLayout.WEST); }
                         // se agrega texto
                         JLabel labelVS = new JLabel("VS");
                         panel.add(labelVS, BorderLayout.CENTER);
                         // imagen 2
-                        JLabel labelEquipo2 = new JLabel(new ImageIcon(Main.class.getResource("/img/" + seleccionado2.getNombre() + ".png")));
-                        panel.add(labelEquipo2, BorderLayout.EAST);
+                        String imagePath2 = "/img/" + seleccionado2.getNombre() + ".png";
+                        ImageIcon iconEquipo2 = loadImageIcon(imagePath2);
+                        if (iconEquipo2 != null) {
+                            JLabel labelEquipo2 = new JLabel(iconEquipo2);
+                            panel.add(labelEquipo2, BorderLayout.EAST);}
                         JOptionPane.showMessageDialog(null, panel, "Copa America 2023", JOptionPane.DEFAULT_OPTION);
-
-                        Partido nuevo = Chiki.JugarPartido(seleccionado1, seleccionado2);
+                        Partido nuevo = torneito.JugarPartido(seleccionado1, seleccionado2);
                         
                         if (nuevo != null) {
                             JOptionPane.showMessageDialog(null, nuevo);
-                            Chiki.getPartidos().add(nuevo);
+                            torneito.getPartidos().add(nuevo);
                         } else {
                             JOptionPane.showMessageDialog(null, "Partido no se agregó a la lista");
                         }
                     }
                     break;
                 case 1:
-                    JOptionPane.showMessageDialog(null, Chiki.verPartidos());
+                    JOptionPane.showMessageDialog(null, torneito.verPartidos());
                     break;
                 case 2:
-                    Chiki.DefinirGrupos();
+                	torneito.DefinirGrupos();
                     break;
                 case 3:
                     //sección para gestionar equipos
@@ -85,18 +88,18 @@ public class Main {
                             case 0:
                                 String nombreEquipo = JOptionPane.showInputDialog("Ingrese el nombre del nuevo equipo:");
                                 Equipo nuevoEquipo = new Equipo(nombreEquipo);
-                                Chiki.AgregarEquipo(nuevoEquipo);
+                                torneito.AgregarEquipo(nuevoEquipo);
                                 break;
                             case 1:
                                 String nombreEliminarEquipo = JOptionPane.showInputDialog("Ingrese el nombre del equipo a eliminar:");
-                                Equipo equipoEliminar = Chiki.Buscar(nombreEliminarEquipo);
-                                Chiki.EliminarEquipo(equipoEliminar);
+                                Equipo equipoEliminar = torneito.Buscar(nombreEliminarEquipo);
+                                torneito.EliminarEquipo(equipoEliminar);
                                 break;
                             case 2:
-                                JOptionPane.showMessageDialog(null, "Cantidad total de equipos: " + Chiki.CantidadTotalEquipos());
+                                JOptionPane.showMessageDialog(null, "Cantidad total de equipos: " + torneito.CantidadTotalEquipos());
                                 break;
                             case 3:
-                                JOptionPane.showMessageDialog(null, Chiki.ObtenerListaEquipos());
+                                JOptionPane.showMessageDialog(null, torneito.ObtenerListaEquipos());
                                 break;
                             default:
                                 JOptionPane.showMessageDialog(null, "Volviendo al menu...");
@@ -164,5 +167,13 @@ public class Main {
                     break;
             }
         } while (opcion != 5);
+    }
+    private static ImageIcon loadImageIcon(String path) {   //solucion que encontre para poder jugar con los equipos agregadosssssssssssss porfinnn
+        try {												//tuve q aplicarlo en main no pude agregarlo en una clase aparte
+            return new ImageIcon(Main.class.getResource(path));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

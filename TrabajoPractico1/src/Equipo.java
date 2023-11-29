@@ -1,17 +1,6 @@
 public class Equipo extends Jugador{
 	
-	//Atributos: nombre, ciudad, lista de jugadores (LinkedList<Jugador>).
-	//Métodos:
-	//Agregar un jugador a la lista.
-	//Eliminar un jugador de la lista.
-	//Buscar un jugador por nombre.
-	//Obtener la cantidad total de jugadores en el equipo.
-	//Obtener la lista de jugadores en el equipo.
-	//aca hago uso de la linkedlist
-	
 	private String nombre;
-	
-	
 	
 
 	public Equipo(String nombre) {

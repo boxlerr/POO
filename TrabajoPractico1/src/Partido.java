@@ -20,8 +20,7 @@ public class Partido {
 		contador++;
 		this.id = contador;
 	}
-
-
+	
 	@Override
 	public String toString() {
 		return "Partido:"  + "\nEquipo 1: " + equipo1.getNombre() + "\nequipo2: " + equipo2.getNombre() + "\nGoles Team 1: " + gol1

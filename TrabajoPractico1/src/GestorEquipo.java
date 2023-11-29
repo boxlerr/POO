@@ -77,36 +77,36 @@ public class GestorEquipo {
 				
 				return nuevoPartido;	
 			} else {
-				JOptionPane.showMessageDialog(null, "Jugadores Insuficientes");
+				JOptionPane.showMessageDialog(null, "error");
 				return null;
 			}
 		}
 	}
 
 	public void DefinirGrupos() {    // creación de grupos
-		String grupoA = "Grupo A";					
-		String grupoB = "Grupo B";		
-		String grupoC = "Grupo C";		
-		String grupoD = "Grupo D";
+		String grupoA = " Grupo A ";					
+		String grupoB = " Grupo B ";		
+		String grupoC = " Grupo C ";		
+		String grupoD = " Grupo D ";
 		
 		int lista = this.getEquipos().size() / 2;			// primera mitad de la lista
 		
 		for (int i = 0; i < lista; i++) {	
 			if (i % 2 == 0) {
-				grupoA = grupoA + this.getEquipos().get(i).getNombre();
+				grupoA = grupoA + " - "+ this.getEquipos().get(i).getNombre();
 			} else {
-				grupoB = grupoB + this.getEquipos().get(i).getNombre();
+				grupoB = grupoB + " - "+ this.getEquipos().get(i).getNombre();
 			}
 		}
 		
 		for (int i = lista; i < this.getEquipos().size(); i++) {	// de la mitad al final
 			if (i % 2 == 0) {
-				grupoC = grupoC + this.getEquipos().get(i).getNombre();
+				grupoC = grupoC + " - " +this.getEquipos().get(i).getNombre();
 			} else {
-				grupoD = grupoD + this.getEquipos().get(i).getNombre();
+				grupoD = grupoD + " - " +this.getEquipos().get(i).getNombre();
 			}
 		}
-		
+		JOptionPane.showMessageDialog(null, "Crea grupos para simular un torneo!");
 		JOptionPane.showMessageDialog(null, grupoA);
 		JOptionPane.showMessageDialog(null, grupoB);
 		JOptionPane.showMessageDialog(null, grupoC);
