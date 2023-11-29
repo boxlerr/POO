@@ -51,6 +51,6 @@ public class Equipo extends Jugador{
 
 	@Override
 	public String toString() {
-		return "Equipo [nombre=" + nombre + ", foto=" + foto + "]";
+		return "  " + nombre + "  " ;
 	}
 }

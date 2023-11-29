@@ -114,11 +114,12 @@ public class GestorEquipo {
 	}
 
 	public String verPartidos() {
-		String lista = "--Lista de Partidos-- \n";
+		String doparti = "Lo siento, Debes jugar para ver el historial de partidos!"; 
+		String lista = "--Lista de Partidos-- \n"; //me devolvia 2 partidos si usaba lista para retornar
 		for(Partido partido : partidos) {
-			lista = lista + partido + "\n";
+		 doparti = lista + partido + "\n";
 		}
-		return lista;
+		return doparti ;
 	}
 	
 

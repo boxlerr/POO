@@ -39,6 +39,8 @@ public class Main {
                         seleccionado1.GenerarEquipo();
                         Equipo seleccionado2 = Chiki.Buscar(menu);
                         seleccionado2.GenerarEquipo();
+                        JOptionPane.showMessageDialog(null, seleccionado1 + "**VS**" + seleccionado2);
+                        
                         Partido nuevo = Chiki.JugarPartido(seleccionado1, seleccionado2);
                         if (nuevo != null) {
                             JOptionPane.showMessageDialog(null, nuevo);

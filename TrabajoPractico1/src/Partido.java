@@ -25,7 +25,7 @@ public class Partido {
 	@Override
 	public String toString() {
 		return "Partido:"  + "\nEquipo 1: " + equipo1.getNombre() + "\nequipo2: " + equipo2.getNombre() + "\nGoles Team 1: " + gol1
-				+ "\nGoles Team 2: " + gol2 + "\nDuraciòn: " + duracion + "\nId del partido" + id;
+				+ "\nGoles Team 2: " + gol2 + "\nDuraciòn: " + duracion + "\nId del partido " + id;
 	}
 	
 	
