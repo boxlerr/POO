@@ -1,4 +1,6 @@
 import java.util.LinkedList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder modificar el jugador en gestion de jugador
@@ -106,11 +108,11 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 		JOptionPane.showMessageDialog(null, grupoD);
 	}
 
-	public String verPartidos() { //string para poder devolverlo como lista creo q esta bien
+	public String verPartidos() { //string para poder devolverlo como lista creo q esta bien    
 	    StringBuilder lista = new StringBuilder(partidos.isEmpty() ? "Lo siento, Debes jugar para ver el historial de partidos!\n" : "--Lista de Partidos--\n");
-
+	    
 	    for (Partido partido : partidos) {
-	        lista.append(partido).append("\n");
+	        lista.append(partido).append("\n");   //solucionar se repite
 	    }
 
 	    return lista.toString();
@@ -171,50 +173,169 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 	return listaEquipos.toString();
 	}
 	
+	public boolean AgregarJugador(String[] nombresEquipos) {
+	    // Mostrar cuadro de diálogo para seleccionar un equipo
+	    String nombreEquipo = (String) JOptionPane.showInputDialog(
+	            null,
+	            "Seleccione un equipo:",
+	            "Selección de equipos",
+	            JOptionPane.DEFAULT_OPTION,
+	            new ImageIcon(Main.class.getResource("/img/americaa.png")),
+	            nombresEquipos,
+	            nombresEquipos[0]);
+
+	    // Buscar el equipo seleccionado
+	    Equipo equipoSeleccionado = Buscar(nombreEquipo);
+
+	    if (equipoSeleccionado != null) {
+	        // Agregar jugador al equipo seleccionado
+	        String nombre = JOptionPane.showInputDialog("Ingrese Nombre del Jugador");
+	        String posicion = JOptionPane.showInputDialog("Ingrese Posición del Jugador");
+	        int numeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Número de Camiseta"));
+	        int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Edad del Jugador"));
+
+	        // Utilizar la misma instancia de GestorEquipo para agregar el jugador
+	        if (equipoSeleccionado.AgregarJugador(nombre, posicion, numeroCamiseta, edad)) {
+	            JOptionPane.showMessageDialog(null, "Jugador agregado exitosamente al equipo " + equipoSeleccionado.getNombre() + ".");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador.");
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Error: Equipo no seleccionado correctamente.");
+	    }
+
+	    return false;
+	}
+	
+	
 	public void modificarJugador() {
-	    if (this.getJugadores().isEmpty()) {
-	        JOptionPane.showMessageDialog(null, "No hay jugadores disponibles para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+	    if (this.getEquipos().isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay equipos disponibles para modificar jugadores.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 
-	    //array para cuadro de diálogo
-	    String[] nombresJugadores = new String[this.getJugadores().size()];
-	    for (int i = 0; i < nombresJugadores.length; i++) {
-	        nombresJugadores[i] = this.getJugadores().get(i).getNombre();
+	    // Crear una lista de nombres de equipos
+	    String[] nombresEquipos = new String[this.getEquipos().size()];
+	    for (int i = 0; i < nombresEquipos.length; i++) {
+	        nombresEquipos[i] = this.getEquipos().get(i).getNombre();
 	    }
 
-	    // eligir jugador
-	    String nombreJugadorModificar = (String) JOptionPane.showInputDialog(
+	    // Elegir un equipo
+	    String nombreEquipo = (String) JOptionPane.showInputDialog(
 	            null,
-	            "Seleccione un jugador para modificar:",
-	            "Modificar Jugador",
-	            JOptionPane.QUESTION_MESSAGE,
-	            null,
-	            nombresJugadores,
-	            nombresJugadores[0]);
+	            "Seleccione un equipo:",
+	            "Selección de equipos",
+	            JOptionPane.DEFAULT_OPTION,
+	            new ImageIcon(Main.class.getResource("/img/americaa.png")),
+	            nombresEquipos,
+	            nombresEquipos[0]);
 
-	    if (nombreJugadorModificar != null) {
-	        // busca el jugador
-	        Jugador jugadorModificar = Jugador.buscarJugadorPorNombre(this.getJugadores(), nombreJugadorModificar);
+	    // Buscar el equipo seleccionado
+	    Equipo equipoSeleccionado = Buscar(nombreEquipo);
 
-	        if (jugadorModificar != null) {
-	            String nuevoNombre = JOptionPane.showInputDialog("Ingrese Nuevo Nombre");
-	            String nuevaPosicion = JOptionPane.showInputDialog("Ingrese Nueva Posición");
-	            int nuevoNumeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nuevo Número de Camiseta"));
-	            int nuevaEdad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nueva Edad"));
+	    if (equipoSeleccionado != null) {
+	        // Obtener la lista de jugadores del equipo seleccionado
+	        LinkedList<Jugador> jugadoresEquipo = equipoSeleccionado.getJugadores();
 
-	            // Modificar los atributos del jugador
-	            jugadorModificar.setNombre(nuevoNombre);
-	            jugadorModificar.setPosicion(nuevaPosicion);
-	            jugadorModificar.setNumerodecamiseta(nuevoNumeroCamiseta);
-	            jugadorModificar.setEdad(nuevaEdad);
+	        if (!jugadoresEquipo.isEmpty()) {
+	            // Crear una lista de nombres de jugadores
+	            String[] nombresJugadores = new String[jugadoresEquipo.size()];
+	            for (int i = 0; i < nombresJugadores.length; i++) {
+	                nombresJugadores[i] = jugadoresEquipo.get(i).getNombre();
+	            }
 
-	            JOptionPane.showMessageDialog(null, "Información del jugador modificada exitosamente.");
+	            // Elegir un jugador
+	            String nombreJugadorModificar = (String) JOptionPane.showInputDialog(
+	                    null,
+	                    "Seleccione un jugador para modificar:",
+	                    "Modificar Jugador",
+	                    JOptionPane.QUESTION_MESSAGE,
+	                    null,
+	                    nombresJugadores,
+	                    nombresJugadores[0]);
+
+	            if (nombreJugadorModificar != null) {
+	                // Buscar el jugador seleccionado en el equipo
+	                Jugador jugadorModificar = Jugador.buscarJugadorPorNombre(jugadoresEquipo, nombreJugadorModificar);
+
+	                if (jugadorModificar != null) {
+	                    // Obtener nuevos datos del jugador
+	                    String nuevoNombre = JOptionPane.showInputDialog("Ingrese Nuevo Nombre");
+	                    String nuevaPosicion = JOptionPane.showInputDialog("Ingrese Nueva Posición");
+	                    int nuevoNumeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nuevo Número de Camiseta"));
+	                    int nuevaEdad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Nueva Edad"));
+
+	                    // Modificar los atributos del jugador
+	                    jugadorModificar.setNombre(nuevoNombre);
+	                    jugadorModificar.setPosicion(nuevaPosicion);
+	                    jugadorModificar.setNumerodecamiseta(nuevoNumeroCamiseta);
+	                    jugadorModificar.setEdad(nuevaEdad);
+
+	                    JOptionPane.showMessageDialog(null, "Información del jugador modificada exitosamente.");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "No se encontró el jugador a modificar en el equipo.", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	            }
 	        } else {
-	            JOptionPane.showMessageDialog(null, "No se encontró el jugador a modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(null, "El equipo no tiene jugadores para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
 	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Error: Equipo no seleccionado correctamente.");
 	    }
-	 }
+	}
+	public void eliminarJugador() {
+        if (this.getEquipos().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay equipos disponibles para eliminar jugadores.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear una lista de nombres de equipos
+        String[] nombresEquipos = new String[this.getEquipos().size()];
+        for (int i = 0; i < nombresEquipos.length; i++) {
+            nombresEquipos[i] = this.getEquipos().get(i).getNombre();
+        }
+
+        // Elegir un equipo
+        String nombreEquipo = (String) JOptionPane.showInputDialog(null,"Seleccione un equipo:","Selección de equipos",JOptionPane.DEFAULT_OPTION,new ImageIcon(Main.class.getResource("/img/americaa.png")),nombresEquipos,nombresEquipos[0]);
+
+        // Buscar el equipo seleccionado
+        Equipo equipoSeleccionado = Buscar(nombreEquipo);
+
+        if (equipoSeleccionado != null) {
+            // Obtener la lista de jugadores del equipo seleccionado
+            LinkedList<Jugador> jugadoresEquipo = equipoSeleccionado.getJugadores();
+
+            if (!jugadoresEquipo.isEmpty()) {
+                // Crear una lista de nombres de jugadores
+                String[] nombresJugadores = new String[jugadoresEquipo.size()];
+                for (int i = 0; i < nombresJugadores.length; i++) {
+                    nombresJugadores[i] = jugadoresEquipo.get(i).getNombre();
+                }
+                // eligo jugador
+                String nombreJugadorEliminar = (String) JOptionPane.showInputDialog(null,"Seleccione un jugador para eliminar:","Eliminar Jugador",JOptionPane.QUESTION_MESSAGE,null,nombresJugadores,nombresJugadores[0]);
+
+                if (nombreJugadorEliminar != null) {
+                    //busca el jugador seleccionado
+                    Jugador jugadorEliminar = Jugador.buscarJugadorPorNombre(jugadoresEquipo, nombreJugadorEliminar);
+
+                    if (jugadorEliminar != null) {
+                        // si encuentra el jugador lo borra
+                        jugadoresEquipo.remove(jugadorEliminar);
+                        JOptionPane.showMessageDialog(null, "Jugador eliminado exitosamente.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró el jugador en el equipo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El equipo no tiene jugadores para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: Equipo no seleccionado correctamente.");
+        }
+    }
+
+
 }
 	
 	

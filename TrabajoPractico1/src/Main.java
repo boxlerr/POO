@@ -17,7 +17,6 @@ public class Main {
         torneito.getEquipos().add(new Equipo("Bolivia"));
         torneito.getEquipos().add(new Equipo("Venezuela"));
         
-        Jugador player = new Jugador();
 
         JOptionPane.showMessageDialog(null, "Bienvenido al torneo de la Copa America \n-Podras simular un torneo con la opcion Definir Grupos!"
         		+ "\n-Podras gestionar tus equipos! \n-Podras gestionar jugadores! \n-Ver el historial de tus partidos! \nJugar la Copa America!! ", "Copa America 2023", JOptionPane.INFORMATION_MESSAGE,
@@ -116,44 +115,18 @@ public class Main {
 
                         switch (opcionGestionJugadores) {
                             case 0:                                  
-                                            String[] equipos = new String[torneito.getEquipos().size()];
-                                            for (int i = 0; i < equipos.length; i++) {
-                                                equipos[i] = torneito.getEquipos().get(i).getNombre();
-                                            }
-
-                                            String menuEquipo = (String) JOptionPane.showInputDialog(
-                                                    null,
-                                                    "Seleccione un equipo:",
-                                                    "Selección de equipos",
-                                                    JOptionPane.DEFAULT_OPTION,
-                                                    new ImageIcon(Main.class.getResource("/img/americaa.png")),
-                                                    equipos,
-                                                    equipos[0]);
-
-                                            Equipo equipoSeleccionado = torneito.Buscar(menuEquipo);
-
-                                            if (equipoSeleccionado != null) {
-                                                // Método agregar jugador
-                                                    String nombre = JOptionPane.showInputDialog("Ingrese Nombre del Jugador");
-                                                    String posicion = JOptionPane.showInputDialog("Ingrese Posicion del Jugador");
-                                                    int numeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Numero de Camiseta"));
-                                                    int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Edad del Jugador"));
-
-                                                    // Utiliza la misma instancia de GestorEquipo para agregar el jugador
-                                                    if (equipoSeleccionado.AgregarJugador(nombre, posicion, numeroCamiseta, edad)) {
-                                                        JOptionPane.showMessageDialog(null, "Jugador agregado exitosamente.");
-                                                    } else {
-                                                        JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador.");
-                                                    }       
-                                            } else {
-                                                JOptionPane.showMessageDialog(null, "Error: Equipo no seleccionado correctamente.");
-                                            }
+                            	// Obtener nombres de equipos
+                                String[] nombresEquipos = new String[torneito.getEquipos().size()];
+                                for (int i = 0; i < nombresEquipos.length; i++) {
+                                    nombresEquipos[i] = torneito.getEquipos().get(i).getNombre();
+                                }
+                                torneito.AgregarJugador(nombresEquipos);
                                 break;
                             case 1:
                                 torneito.modificarJugador();
                                 break;
                             case 2:
-                                player.eliminarJugador();
+                                torneito.eliminarJugador();
                                 break;
                             case 3:
                                 JOptionPane.showMessageDialog(null, "Salir");
