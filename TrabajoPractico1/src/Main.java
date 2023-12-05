@@ -26,39 +26,37 @@ public class Main {
         int opcion = 0;
         Equipo seleccionado1 = null;
 
-        do {
-            opcion = JOptionPane.showOptionDialog(null, "Elegir", null, 0, 0, null, opciones, opciones);
-
-            switch (opcion) {   
-                case 0:    //JUGAR DOPARTI
-                    if (torneito.getEquipos().size() == 1) {
+    do {
+           opcion = JOptionPane.showOptionDialog(null, "Elegir", null, 0, 0, null, opciones, opciones);
+           switch (opcion) {   
+           case 0:    //JUGAR DOPARTI
+                 if (torneito.getEquipos().size() == 1) {
                         JOptionPane.showMessageDialog(null, "Es el ganador!" + torneito.getEquipos().get(0).getNombre());
                     } else {
                         String[] equipos = new String[torneito.getEquipos().size()];
                         for (int i = 0; i < equipos.length; i++) {
                             equipos[i] = torneito.getEquipos().get(i).getNombre();
                         }
-
-                        String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
-                        seleccionado1 = torneito.Buscar(menu);
-                        menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
-                        seleccionado1.GenerarEquipo();
-                        Equipo seleccionado2 = torneito.Buscar(menu);
-                        seleccionado2.GenerarEquipo();
+                     String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
+                     seleccionado1 = torneito.Buscar(menu);
+                     menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
+                     seleccionado1.GenerarEquipo();
+                     Equipo seleccionado2 = torneito.Buscar(menu);
+                     seleccionado2.GenerarEquipo();
                         // usando función panel por primera vez
-                        JPanel panel = new JPanel(new BorderLayout());
+                     JPanel panel = new JPanel(new BorderLayout());
                         // se agrega imagen 1
-                        String imagePath1 = "/img/" + seleccionado1.getNombre() + ".png";
-                        ImageIcon iconEquipo1 = loadImageIcon(imagePath1);
-                        if (iconEquipo1 != null) {
-                            JLabel labelEquipo1 = new JLabel(iconEquipo1);
-                            panel.add(labelEquipo1, BorderLayout.WEST); }
+                     String imagePath1 = "/img/" + seleccionado1.getNombre() + ".png";
+                     ImageIcon iconEquipo1 = loadImageIcon(imagePath1);
+                     if (iconEquipo1 != null) {
+                         JLabel labelEquipo1 = new JLabel(iconEquipo1);
+                         panel.add(labelEquipo1, BorderLayout.WEST); }
                         // se agrega texto
-                        JLabel labelVS = new JLabel("VS");
-                        panel.add(labelVS, BorderLayout.CENTER);
+                     JLabel labelVS = new JLabel("VS");
+                     panel.add(labelVS, BorderLayout.CENTER);
                         // imagen 2
-                        String imagePath2 = "/img/" + seleccionado2.getNombre() + ".png";
-                        ImageIcon iconEquipo2 = loadImageIcon(imagePath2);
+                     String imagePath2 = "/img/" + seleccionado2.getNombre() + ".png";
+                     ImageIcon iconEquipo2 = loadImageIcon(imagePath2);
                         if (iconEquipo2 != null) {
                             JLabel labelEquipo2 = new JLabel(iconEquipo2);
                             panel.add(labelEquipo2, BorderLayout.EAST);}
