@@ -17,7 +17,16 @@ public class Equipo extends Jugador{
 			this.getJugadores().add(new Jugador("Jugador: " + i,posicion[aleatorio],i,4));
 		}
 	}
-	
+	public String obtenerInformacion() {
+        StringBuilder infoEquipo = new StringBuilder("Información del Equipo " + this.getNombre() + ":\n");
+
+        // Mostrar la información de cada jugador en el equipo
+        for (Jugador jugador : this.getJugadores()) {
+            infoEquipo.append(jugador.toString()).append("\n");
+        }
+
+        return infoEquipo.toString();
+    }
 	
 	public String getNombre() {
 		return nombre;
