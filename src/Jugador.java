@@ -59,7 +59,6 @@ public class Jugador {
 		this.jugadores = jugadores;
 	}
 
-
 	public void modificarJugadorEnGestor(String nombre, String posicion, int numerodecamiseta, int edad) {
         setNombre(nombre);
         setPosicion(posicion);

@@ -1,3 +1,5 @@
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 public class Partido {
@@ -79,6 +81,7 @@ public class Partido {
 		Partido.contador = contador;
 	}
 	
+	
 	public Equipo getGanador() {
         if (gol1 > gol2) {
             return equipo1;
@@ -108,11 +111,52 @@ public class Partido {
 
         JOptionPane.showMessageDialog(null, "Resultados Cuartos de Final:\n" + partidoCuartos1 + "\n" + partidoCuartos2);
 
-        // Obtener el ganador directamente en lugar de usar obtenerGanador()
+        // Obtener los ganadores directamente en lugar de usar obtenerGanador()
         Equipo ganadorCuartos1 = partidoCuartos1.getGanador();
         Equipo ganadorCuartos2 = partidoCuartos2.getGanador();
 
-        return ganadorCuartos1 != null ? ganadorCuartos1 : ganadorCuartos2;
+        // Retornar una lista con los equipos ganadores
+        return (ganadorCuartos1 != null && ganadorCuartos2 != null) ? (Equipo) List.of(ganadorCuartos1, ganadorCuartos2) : null;
+    }
+
+    public static Equipo jugarSemifinal(GestorEquipo torneito, List<Equipo> ganadoresCuartos) {
+        if (ganadoresCuartos == null || ganadoresCuartos.size() < 2) {
+            return null; // No hay suficientes equipos para jugar la semifinal
+        }
+
+        // Obtener equipos aleatorios para la semifinal
+        Equipo equipoSemi1 = ganadoresCuartos.get(0);
+        Equipo equipoSemi2 = ganadoresCuartos.get(1);
+
+        // Jugar el partido de semifinal
+        Partido partidoSemi = torneito.JugarPartido(equipoSemi1, equipoSemi2);
+
+        JOptionPane.showMessageDialog(null, "Resultado Semifinal:\n" + partidoSemi);
+
+        // Obtener el ganador directamente en lugar de usar obtenerGanador()
+        Equipo ganadorSemi = partidoSemi.getGanador();
+
+        return ganadorSemi;
+    }
+
+    public static Equipo jugarFinal(GestorEquipo torneito, Equipo ganadorSemi1, Equipo ganadorSemi2) {
+        if (ganadorSemi1 == null || ganadorSemi2 == null) {
+            return null; // No hay suficientes equipos para jugar la final
+        }
+
+        // Obtener equipos para la final
+        Equipo equipoFinal1 = ganadorSemi1;
+        Equipo equipoFinal2 = ganadorSemi2;
+
+        // Jugar el partido de la final
+        Partido partidoFinal = torneito.JugarPartido(equipoFinal1, equipoFinal2);
+
+        JOptionPane.showMessageDialog(null, "Resultado Final:\n" + partidoFinal);
+
+        // Obtener el ganador directamente en lugar de usar obtenerGanador()
+        Equipo campeon = partidoFinal.getGanador();
+
+        return campeon;
     }
 	
 	

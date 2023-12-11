@@ -8,6 +8,7 @@ public class Equipo extends Jugador{
 	this.nombre = nombre;
 		
 }
+	
 
 	public void GenerarEquipo() {
 		
@@ -34,6 +35,7 @@ public class Equipo extends Jugador{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 
 	@Override
 	public String toString() {

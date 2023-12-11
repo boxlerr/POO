@@ -30,6 +30,7 @@ public class Main {
            opcion = JOptionPane.showOptionDialog(null, "Elegir", null, 0, 0, null, opciones, opciones);
            switch (opcion) {   
            case 0:    //JUGAR DOPARTI
+        	   JOptionPane.showMessageDialog(null, "Simula el torneo a tu gusto!");
                  if (torneito.getEquipos().size() == 1) {
                         JOptionPane.showMessageDialog(null, "Es el ganador!" + torneito.getEquipos().get(0).getNombre());
                     } else {
