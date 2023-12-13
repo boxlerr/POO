@@ -1,6 +1,4 @@
-import java.util.Collections;
 import java.util.LinkedList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -68,7 +66,7 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 			        this.getEquipos().remove(this.getEquipos().indexOf(equipo1));
 			    }
 				
-				Partido nuevoPartido = new Partido(equipo1, equipo2, gol1, gol2, minutos);
+				Partido nuevoPartido = new Partido(equipo1, minutos, minutos, minutos, minutos, minutos, equipo2, gol1, gol2, minutos);
 				this.getPartidos().add(nuevoPartido);
 				
 				return nuevoPartido;	
@@ -335,24 +333,6 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
             JOptionPane.showMessageDialog(null, "Error: Equipo no seleccionado correctamente.");
         }
     }
-	public LinkedList<Partido> generarPartidosAleatorios() {  //ULTIMO AGREGADO
-        LinkedList<Partido> partidos = new LinkedList<>();
-
-        // Obtén una lista de equipos y mézclalos aleatoriamente
-        LinkedList<Equipo> equipos = new LinkedList<>(this.getEquipos());
-        Collections.shuffle(equipos); //para "barajar" los elementos de la lista el metodo acepta como argumento una lista y reorganiza de forma randm
-
-        // Genera los partidos de manera aleatoria
-        for (int i = 0; i < equipos.size(); i += 2) {
-            Equipo equipo1 = equipos.get(i);
-            Equipo equipo2 = equipos.get(i + 1);
-            Partido partido = new Partido(equipo1, equipo2, -1, -1, -1); // -1 indica que aún no se ha jugado
-            partidos.add(partido);
-        }
-
-        return partidos;
-    }
-
 }
 	
 	

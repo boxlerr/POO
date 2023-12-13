@@ -5,14 +5,15 @@ public class Equipo extends Jugador{
 	private boolean autorizacion = true;
     private Resultado resultado;
 	private String nombre;
-	
+	private int cantidadGolesEnElTorneo;
 	
 
-	public Equipo(boolean autorizacion, Resultado resultado, String nombre) {
+	public Equipo(boolean autorizacion, Resultado resultado, String nombre, int cantidadGolesEnElTorneo) {
 	super();
 	this.autorizacion = autorizacion;
 	this.nombre = nombre;
 	this.resultado = resultado;
+	this.cantidadGolesEnElTorneo = cantidadGolesEnElTorneo;
 		
 	}
 
@@ -37,6 +38,13 @@ public class Equipo extends Jugador{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public int getCantidadGolesEnElTorneo() {
+        return cantidadGolesEnElTorneo;
+    }
+    public void setCantidadGolesEnElTorneo(int cantidadGolesEnElTorneo) {
+        this.cantidadGolesEnElTorneo = cantidadGolesEnElTorneo;
+    }
+    
 	@Override
 	public String toString() {
 		return "  " + nombre + "  " ;
@@ -56,5 +64,16 @@ public class Equipo extends Jugador{
 	    Jugador nuevoJugador = new Jugador(nombre, posicion, numeroCamiseta, edad);
 	    this.getJugadores().add(nuevoJugador);
 	    return true;
+	}
+	public void sumarGolesNuevos(int nuevosGoles) {
+        this.cantidadGolesEnElTorneo += nuevosGoles;
+    }
+
+	public void GenerarEquipo() {
+		String [] posicion = {"Delantero","Arquero","Defensa","Mediocampista"};		//generar jugador random
+		for (int i = 0; i < 11; i++) {
+			int aleatorio = (int)(Math.random()*4);
+			this.getJugadores().add(new Jugador("Jugador: " + i,posicion[aleatorio],i,4));
+		}
 	}
 }

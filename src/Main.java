@@ -4,18 +4,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
+
 public class Main {
     public static void main(String[] args) {
     	
         GestorEquipo torneito = new GestorEquipo();
-        torneito.getEquipos().add(new Equipo("Argentina"));
-        torneito.getEquipos().add(new Equipo("Brasil"));
-        torneito.getEquipos().add(new Equipo("Uruguay"));
-        torneito.getEquipos().add(new Equipo("Chile"));
-        torneito.getEquipos().add(new Equipo("Mexico"));
-        torneito.getEquipos().add(new Equipo("Peru"));
-        torneito.getEquipos().add(new Equipo("Bolivia"));
-        torneito.getEquipos().add(new Equipo("Venezuela"));
+        torneito.getEquipos().add(new Equipo(false, null, "Argentina", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Brasil", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Uruguay", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Chile", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Mexico", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Peru", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Bolivia", 0));
+        torneito.getEquipos().add(new Equipo(false, null, "Venezuela", 0));
         
 
         JOptionPane.showMessageDialog(null, "Bienvenido al torneo de la Copa America \n-Podras simular un torneo con la opcion Definir Grupos!"
@@ -30,17 +32,24 @@ public class Main {
            opcion = JOptionPane.showOptionDialog(null, "Elegir", null, 0, 0, null, opciones, opciones);
            switch (opcion) {   
            case 0: 
-        	   if (torneito.getEquipos().size() == 1) {
-                   JOptionPane.showMessageDialog(null, "El ganador es: " + torneito.getEquipos().get(0).getNombre() + "!!!!");
-               } else {
-                   String[] equipos = new String[torneito.getEquipos().size()];
-                   for (int i = 0; i < equipos.length; i++) {
-                       equipos[i] = torneito.getEquipos().get(i).getNombre();
-                  }
-                String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
-                seleccionado1 = torneito.Buscar(menu);
-                
-                }
+        	   Jugador jugador = new Jugador();
+               jugador.elegirEquipo(torneito.getEquipos()); //solucionar con la seleccion de equipo
+               //Creamos las dos llaves que contienen los equipos
+               Llave llaveDerecha = new Llave();
+               Llave llaveIzquierda = new Llave();
+               llaveDerecha.armarLlave(torneito.getEquipos(), 0);
+               llaveIzquierda.armarLlave(torneito.getEquipos(), 4);
+
+               Fase ronda = new Fase();
+               //Cuartos de final
+               ronda.cuartosDeFinal(llaveIzquierda,llaveDerecha);
+               jugador.sumarPuntos();
+               //Semifinal
+               ronda.semifinal(llaveIzquierda,llaveDerecha);
+               jugador.sumarPuntos();
+               //Final
+               ronda.finalDelTorneo(llaveIzquierda,llaveDerecha);
+               jugador.sumarPuntos();
         	   
           break;
            case 1:    //JUGAR DOPARTI
@@ -100,7 +109,7 @@ public class Main {
                         switch (opcionGestionEquipos) {
                             case 0:
                                 String nombreEquipo = JOptionPane.showInputDialog("Ingrese el nombre del nuevo equipo:");
-                                Equipo nuevoEquipo = new Equipo(nombreEquipo);
+                                Equipo nuevoEquipo = new Equipo(false, null, nombreEquipo, opcionGestionEquipos);
                                 torneito.AgregarEquipo(nuevoEquipo);
                                 break;
                             case 1:

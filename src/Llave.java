@@ -1,14 +1,14 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Llave {
-    private List<Equipo> equiposDeLlave;
+    private LinkedList<Equipo> equiposDeLlave;
     private String nombreDeLlave;
 
     //Constructores
     public Llave() {
     }
-    public Llave(String nombredellave, List<Equipo> equiposDeLlave) {
+    public Llave(String nombredellave, LinkedList <Equipo> equiposDeLlave) {
         this.equiposDeLlave = equiposDeLlave;
         this.nombreDeLlave = nombredellave;
     }
@@ -16,7 +16,7 @@ public class Llave {
     public List<Equipo> getEquiposDeLlave() {
         return equiposDeLlave;
     }
-    public void setEquiposDeLlave(List<Equipo> equiposDeLlave) {
+    public void setEquiposDeLlave(LinkedList <Equipo> equiposDeLlave) {
         this.equiposDeLlave = equiposDeLlave;
     }
 
@@ -27,8 +27,8 @@ public class Llave {
         this.nombreDeLlave = nombreDeLlave;
     }
 
-    public void armarLlave(List<Equipo> listaGeneral, int indiceInicial){
-        List<Equipo> equiposllaves=new ArrayList<>();
+    public void armarLlave(LinkedList<Equipo> listaGeneral, int indiceInicial){
+    	LinkedList<Equipo> equiposllaves= new LinkedList<>();
     //Bucle para llenar las llaves
 
         for(int i=indiceInicial; i<indiceInicial+4;i++){

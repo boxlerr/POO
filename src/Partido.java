@@ -1,7 +1,7 @@
-import java.util.List;
 import java.util.Random;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static org.example.enumeradores.Resultado.*;
+
 
 public class Partido {
 	
@@ -13,9 +13,6 @@ public class Partido {
 	private int duracion;
 	private int id;
 	private static int contador=0;
-	private int numeroDeRonda;
-	private int cantidadDeEquiposenRonda;
-    private int cantidadDeEquiposEnLlave;
     private int golesLocal= new Random().nextInt(1,10);
     private int golesVisitante = new Random().nextInt(1,10);
 	
@@ -29,9 +26,6 @@ public class Partido {
 		this.duracion = duracion;
 		contador++;
 		this.id = contador;
-		this.numeroDeRonda = numerodeRonda;
-		this.cantidadDeEquiposenRonda = cantidaddeequiposenRonda;
-        this.cantidadDeEquiposEnLlave = cantidadDeEquiposEnLlave;
         this.golesLocal = goleslocal;
         this.golesVisitante = golesVisitante;
 	}
@@ -145,69 +139,6 @@ public class Partido {
         }
         return null;
     }
-	
-	 public void removerEquipos(List<Equipo> equipos){
-	        int contadorEquiposPorLlave = cantidadDeEquiposEnLlave;
-
-	        for(int i=0; i<contadorEquiposPorLlave; i++){
-	            Equipo auxiliar=equipos.get(i);
-	            if(!auxiliar.getAutorizacion()){
-	                equipos.remove(auxiliar);
-	                contadorEquiposPorLlave--;
-	            }
-	        }
-	    }
-	
-	//Rondas
-    public void cuartosDeFinal(Llave llaveIzquierda, Llave llaveDerecha) {
-        this.numeroDeRonda = 1;
-        this.cantidadDeEquiposEnLlave =4;
-        Partido partido = new Partido();
-        JOptionPane.showMessageDialog(null,
-                "Se jugarán los cuartos de finales",
-                "Cuartos", JOptionPane.INFORMATION_MESSAGE);
-
-        for (int i = 0; i< cantidadDeEquiposEnLlave; i+=2){
-            partido.simularPartido(llaveIzquierda.getEquiposDeLlave().get(i),
-                    llaveIzquierda.getEquiposDeLlave().get(i+1));
-            partido.simularPartido(llaveDerecha.getEquiposDeLlave().get(i),
-                    llaveDerecha.getEquiposDeLlave().get(i+1));
-        }
-        removerEquipos(llaveIzquierda.getEquiposDeLlave());
-        removerEquipos(llaveDerecha.getEquiposDeLlave());
-        this.cantidadDeEquiposEnLlave =2;
-    }
-
-    public void semifinal(Llave llaveIzquierda, Llave llaveDerecha){
-        this.numeroDeRonda =2;
-        JOptionPane.showMessageDialog(null, "Se jugará la semifinal.",
-                "Semifinal", JOptionPane.INFORMATION_MESSAGE);
-        
-        Partido partido=new Partido();
-        for (int i = 0; i< cantidadDeEquiposEnLlave; i+=2) {
-            partido.simularPartido(llaveIzquierda.getEquiposDeLlave().get(i),
-                    llaveIzquierda.getEquiposDeLlave().get(i+1));
-            partido.simularPartido(llaveDerecha.getEquiposDeLlave().get(i),
-                    llaveDerecha.getEquiposDeLlave().get(i+1));
-        }
-        removerEquipos(llaveDerecha.getEquiposDeLlave());
-        removerEquipos(llaveIzquierda.getEquiposDeLlave());
-    }
-    public void finalDelTorneo(Llave llaveIzquierda, Llave llaveDerecha) {
-        this.numeroDeRonda = 3;
-        JOptionPane.showMessageDialog(null,
-                "Se jugará la final.",
-                "Final",
-                JOptionPane.INFORMATION_MESSAGE);
-        Partido partido = new Partido();
-
-        Equipo equipo = partido.simularPartido(llaveDerecha.getEquiposDeLlave().get(0), llaveIzquierda.getEquiposDeLlave().get(0));
-
-        JOptionPane.showMessageDialog(null, "El ganador del torneo es: "+equipo.getNombre(),
-                "Ganador del torneo", JOptionPane.INFORMATION_MESSAGE);
-    }
-}
-
 
 	@Override
 	public String toString() {

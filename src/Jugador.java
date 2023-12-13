@@ -1,5 +1,4 @@
 import javax.swing.JOptionPane;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +7,9 @@ public class Jugador {
     private String nombre;
     private String posicion;
     private int numerodecamiseta;
+    private Equipo equipoSeleccionado;
     private int edad;
+    private int puntaje;
     private LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
 
     public Jugador(String nombre, String posicion, int numerodecamiseta, int edad) {
@@ -37,10 +38,6 @@ public class Jugador {
         return numerodecamiseta;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
     public void setPosicion(String posicion) {
         this.posicion = posicion;
     }
@@ -48,10 +45,29 @@ public class Jugador {
     public void setNumerodecamiseta(int numerodecamiseta) {
         this.numerodecamiseta = numerodecamiseta;
     }
-
+    
+    public Equipo getEquipoSeleccionado() {
+        return equipoSeleccionado;
+    }
+    public void setEquipoSeleccionado(Equipo equipoSeleccionado) {
+        this.equipoSeleccionado = equipoSeleccionado;
+    }
+    
+    public int getEdad() {
+    	return edad;
+    }
+    
     public void setEdad(int edad) {
         this.edad = edad;
     }
+    
+    public int getPuntaje() {
+        return puntaje;
+    }
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
     public LinkedList<Jugador> getJugadores() {
 		return jugadores;
 	}
@@ -82,7 +98,13 @@ public class Jugador {
         }
         return null;
     }
-
+    
+    public void sumarPuntos() {
+        if (equipoSeleccionado.getAutorizacion()) {
+            puntaje++;
+        }
+    }
+  
     @Override
     public String toString() {
         return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
