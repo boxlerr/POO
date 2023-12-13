@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.List;
 
 public class Llave {
     private LinkedList<Equipo> equiposDeLlave;
@@ -13,11 +12,11 @@ public class Llave {
         this.nombreDeLlave = nombredellave;
     }
     //Setters and getters
-    public List<Equipo> getEquiposDeLlave() {
+    public LinkedList <Equipo> getEquiposDeLlave() {
         return equiposDeLlave;
     }
     public void setEquiposDeLlave(LinkedList <Equipo> equiposDeLlave) {
-        this.equiposDeLlave = equiposDeLlave;
+        this.equiposDeLlave = (LinkedList<Equipo>) equiposDeLlave;
     }
 
     public String getNombreDeLlave() {

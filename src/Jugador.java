@@ -110,4 +110,9 @@ public class Jugador {
         return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
                 + ", edad=" + edad + "]";
     }
+
+	public void elegirEquipo(LinkedList<Equipo> equipos) {
+		// TODO Auto-generated method stub
+		
+	}
 }
