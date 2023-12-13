@@ -22,22 +22,38 @@ public class Main {
         		+ "\n-Podras gestionar tus equipos! \n-Podras gestionar jugadores! \n-Ver el historial de tus partidos! \nJugar la Copa America!! ", "Copa America 2023", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(Main.class.getResource("/img/americaa.png")));
 
-        String[] opciones = {"Jugar partido", "Lista de Partidos", "Definir Grupos", "Gestión de Equipos", "Gestión de Jugadores", "Salir"};
+        String[] opciones = {"Jugar Torneo","Jugar partido", "Lista de Partidos", "Definir Grupos", "Gestión de Equipos", "Gestión de Jugadores", "Salir"};
         int opcion = 0;
         Equipo seleccionado1 = null;
 
     do {
            opcion = JOptionPane.showOptionDialog(null, "Elegir", null, 0, 0, null, opciones, opciones);
            switch (opcion) {   
-           case 0:    //JUGAR DOPARTI
+           case 0: 
+        	   if (torneito.getEquipos().size() == 1) {
+                   JOptionPane.showMessageDialog(null, "El ganador es: " + torneito.getEquipos().get(0).getNombre() + "!!!!");
+               } else {
+                   String[] equipos = new String[torneito.getEquipos().size()];
+                   for (int i = 0; i < equipos.length; i++) {
+                       equipos[i] = torneito.getEquipos().get(i).getNombre();
+                  }
+                String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
+                seleccionado1 = torneito.Buscar(menu);
+                
+                }
+        	   //JUGARTORNEO ACA
+        	   //CADA EQUIPO TENGA 11 ALEATORIO
+        	   
+          break;
+           case 1:    //JUGAR DOPARTI
         	   JOptionPane.showMessageDialog(null, "Simula el torneo a tu gusto!");
                  if (torneito.getEquipos().size() == 1) {
-                        JOptionPane.showMessageDialog(null, "Es el ganador!" + torneito.getEquipos().get(0).getNombre());
+                        JOptionPane.showMessageDialog(null, "El ganador es: " + torneito.getEquipos().get(0).getNombre() + "!!!!");
                     } else {
                         String[] equipos = new String[torneito.getEquipos().size()];
                         for (int i = 0; i < equipos.length; i++) {
                             equipos[i] = torneito.getEquipos().get(i).getNombre();
-                        }
+                       }
                      String menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
                      seleccionado1 = torneito.Buscar(menu);
                      menu = (String) JOptionPane.showInputDialog(null, "Menu", "Selección de equipos", JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("/img/americaa.png")), equipos, equipos[0]);
@@ -72,13 +88,13 @@ public class Main {
                         }
                     }
                     break;
-                case 1:
+                case 2:
                     JOptionPane.showMessageDialog(null, torneito.verPartidos()); //HISTORIAL PARTIDOS
                     break;
-                case 2:
+                case 3:
                 	torneito.DefinirGrupos();  //DEFINIR GRUPOS
                     break;
-                case 3:       //GESTIONAR EQUIPO
+                case 4:       //GESTIONAR EQUIPO
                     String[] opcionesGestionEquipos = {"Agregar Equipo", "Eliminar Equipo", "Cantidad Total de Equipos", "Lista de Equipos", "Salir"};
                     int opcionGestionEquipos = 0;
                     do {
@@ -104,7 +120,7 @@ public class Main {
                         }
                     } while (opcionGestionEquipos != 4);
                     break;
-                case 4: //GESTION DE JUGADOR BETAAA proximamente 11/12/23...
+                case 5: //GESTION DE JUGADOR.
                 	JOptionPane.showMessageDialog(null, "Esta seccion todavia esta en beta! \n proxima actualizacion 11/12/23");
                     String[] opcionesGestionJugadores = {"Agregar Jugador a Equipo", "Modificar Jugador", "Eliminar Jugador", "Salir"};
                     int opcionGestionJugadores = 0;
@@ -139,7 +155,7 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Gracias por participar en el torneo de la Copa America");
                     break;
             }
-        } while (opcion != 5);
+        } while (opcion != 6);
     }
     private static ImageIcon loadImageIcon(String path) {   //solucion que encontre para poder jugar con los equipos agregadosssssssssssss porfinnn
         try {												//tuve q aplicarlo en main no pude agregarlo en una clase aparte

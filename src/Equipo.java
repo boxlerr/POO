@@ -1,23 +1,28 @@
+import org.example.enumeradores.Resultado;
+
 public class Equipo extends Jugador{
 	
+	private boolean autorizacion = true;
 	private String nombre;
+	private Resultado resultado;
+    private int cantidadGolesEnElTorneo;
 	
 
-	public Equipo(String nombre) {
+	public Equipo(boolean autorizacion, String nombre) {
 	super();
+	this.autorizacion = autorizacion;
 	this.nombre = nombre;
 		
-}
-	
-
-	public void GenerarEquipo() {
-		
-		String [] posicion = {"Delantero","Arquero","Defensa","Mediocampista"};		//generar jugador random
-		for (int i = 0; i < 11; i++) {
-			int aleatorio = (int)(Math.random()*4);
-			this.getJugadores().add(new Jugador("Jugador: " + i,posicion[aleatorio],i,4));
-		}
 	}
+
+	public boolean getAutorizacion() {
+        return autorizacion;
+    }
+	
+    public void setAutorizacion(boolean autorizacion) {
+        this.autorizacion = autorizacion;
+    }
+    
 	public String obtenerInformacion() {
         StringBuilder infoEquipo = new StringBuilder("Información del Equipo " + this.getNombre() + ":\n");
 
@@ -35,8 +40,6 @@ public class Equipo extends Jugador{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-
 	@Override
 	public String toString() {
 		return "  " + nombre + "  " ;
