@@ -33,7 +33,7 @@ public class Main {
            switch (opcion) {   
            case 0: 
         	   Jugador jugador = new Jugador();
-               jugador.elegirEquipo(torneito.getEquipos()); //solucionar con la seleccion de equipo
+               jugador.elegirEquipo(torneito.getEquipos()); //solucionar con la seleccion de equipor
                //Creamos las dos llaves que contienen los equipos
                Llave llaveDerecha = new Llave();
                Llave llaveIzquierda = new Llave();
