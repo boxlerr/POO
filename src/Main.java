@@ -41,8 +41,6 @@ public class Main {
                 seleccionado1 = torneito.Buscar(menu);
                 
                 }
-        	   //JUGARTORNEO ACA
-        	   //CADA EQUIPO TENGA 11 ALEATORIO
         	   
           break;
            case 1:    //JUGAR DOPARTI
