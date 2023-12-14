@@ -1,6 +1,7 @@
 import javax.swing.JOptionPane;
+
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class Jugador {
 
@@ -76,57 +77,61 @@ public class Jugador {
 	}
 
 	public void modificarJugadorEnGestor(String nombre, String posicion, int numerodecamiseta, int edad) {
-        setNombre(nombre);
-        setPosicion(posicion);
-        setNumerodecamiseta(numerodecamiseta);
-        setEdad(edad);
-        JOptionPane.showMessageDialog(null, "Información del jugador modificada exitosamente.");
-    }
+	    // Actualiza el nombre del jugador.
+	    setNombre(nombre);
+	    // Actualiza la posición del jugador.
+	    setPosicion(posicion);
+	    // Actualiza el número de camiseta del jugador.
+	    setNumerodecamiseta(numerodecamiseta);
+	    // Actualiza la edad del jugador.
+	    setEdad(edad);
+	    // Muestra un mensaje indicando que la información del jugador se actualizó con éxito.
+	    JOptionPane.showMessageDialog(null, "Información del jugador modificada exitosamente.");
+	}
 
-    
-    public String obtenerInformacion() {
-        return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
-                + ", edad=" + edad + "]";
-    }
 
-
-    public static Jugador buscarJugadorPorNombre(List<Jugador> jugadores, String nombreJugador) {
+    public static Jugador buscarJugadorPorNombre(LinkedList<Jugador> jugadores, String nombreJugador) {
+    	// Recorre la lista de jugadores.
         for (Jugador jugador : jugadores) {
+            // Compara el nombre del jugador actual con el nombre buscado, ignorando mayúsculas y minúsculas.
             if (jugador.getNombre().equalsIgnoreCase(nombreJugador)) {
+                // Si encuentra una coincidencia, devuelve ese jugador.
                 return jugador;
             }
         }
+        // Si no encuentra ninguna coincidencia, devuelve null.
         return null;
     }
-    
-    public void sumarPuntos() {
-        if (equipoSeleccionado.getAutorizacion()) {
-            puntaje++;
-        }
-    }
   
-    @Override
-    public String toString() {
-        return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
-                + ", edad=" + edad + "]";
-    }
 
-    public void elegirEquipo(List<Equipo> listaDeEquipos) {
+    public void elegirEquipo(LinkedList<Equipo> listaDeEquipos) {
+    	// Inicia un mensaje con la lista de equipos disponibles.
         String listadeEquiposenMensaje = "Equipos: \n";
-        //Nos da la lista de equipos disponibles
+        // Agrega cada equipo y su número en la lista al mensaje.
         for (int i = 0; i < listaDeEquipos.size(); i++) {
             listadeEquiposenMensaje += (i + 1) + ". " + listaDeEquipos.get(i).getNombre() + "\n";
         }
+        // Muestra el mensaje con los equipos disponibles.
         JOptionPane.showMessageDialog(null, listadeEquiposenMensaje, "Selección de equipo.", JOptionPane.INFORMATION_MESSAGE);
-        //Nos pide que ingresemos que equipos queremos elegir
+        
         int indiceEquipos;
+        // Solicita al usuario que ingrese el número del equipo que desea elegir.
         do {
             indiceEquipos = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Ingresa el número del equipo que quieres seleccionar: ",
                     "Ingrese un valor", JOptionPane.INFORMATION_MESSAGE)) - 1;
+        // Verifica que el número ingresado sea válido. Si no lo es, solicita otro número.
         } while (indiceEquipos < 0 || indiceEquipos >= listaDeEquipos.size());
+        
+        // Muestra un mensaje confirmando el equipo seleccionado.
         JOptionPane.showMessageDialog(null, "Seleccionaste a: " + listaDeEquipos.get(indiceEquipos).getNombre());
+        // Establece el equipo seleccionado como el equipo del jugador actual.
         this.equipoSeleccionado = listaDeEquipos.get(indiceEquipos);
     }
 
+    @Override
+    public String toString() {
+    	return "\nJugador [nombre=" + nombre + ", posición=" + posicion + ", numerodecamiseta=" + numerodecamiseta
+    			+ ", edad=" + edad + "]";
+    }
 }

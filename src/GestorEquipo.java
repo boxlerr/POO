@@ -35,40 +35,43 @@ public class GestorEquipo {  //antes me obligaba a hacer herencia de jugador per
 	}
 	
 	public Partido JugarPartido(Equipo equipo1, Equipo equipo2) {
-		if(equipo1.getNombre().equals(equipo2.getNombre())) {
-			JOptionPane.showMessageDialog(null, "Los equipos deben ser diferentes");
-			return null;
-		} else {
-			if (equipo1.getJugadores().size() >= 11 && equipo2.getJugadores().size() >= 11) {
-				int gol1;
-				int gol2;
-				
-				do {
-					gol1 = (int)(Math.random()*6);
-					gol2 = (int)(Math.random()*6);
-					
-					if (gol1 == gol2) {
-						JOptionPane.showMessageDialog(null, "Empataron");   //hacer penales si se empata
-					}
-				} while(gol1 == gol2);
-				
-				if (gol1 > gol2) {
-			        JOptionPane.showMessageDialog(null, "Ganó! " + equipo1.getNombre());
-			        this.getEquipos().remove(this.getEquipos().indexOf(equipo2));
-			    } else {
-			        JOptionPane.showMessageDialog(null, "Ganó! " + equipo2.getNombre());
-			        this.getEquipos().remove(this.getEquipos().indexOf(equipo1));
-			    }
-				
-				Partido nuevoPartido = new Partido();
-				this.getPartidos().add(nuevoPartido);
-				
-				return nuevoPartido;	
-			} else {
-				JOptionPane.showMessageDialog(null, "error");
-				return null;
-			}
-		}
+	    if (equipo1.getNombre().equals(equipo2.getNombre())) {
+	        JOptionPane.showMessageDialog(null, "Los equipos deben ser diferentes");
+	        return null;
+	    } else {
+	        if (equipo1.getJugadores().size() >= 11 && equipo2.getJugadores().size() >= 11) {
+	            int gol1;
+	            int gol2;
+	            
+	            do {
+	                gol1 = (int)(Math.random()*6);
+	                gol2 = (int)(Math.random()*6);
+	                
+	                if (gol1 == gol2) {
+	                    JOptionPane.showMessageDialog(null, "Empataron");   //hacer penales si se empata
+	                }
+	            } while (gol1 == gol2);
+	            
+	            if (gol1 > gol2) {
+	                JOptionPane.showMessageDialog(null, "Ganó! " + equipo1.getNombre());
+	                this.getEquipos().remove(this.getEquipos().indexOf(equipo2));
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Ganó! " + equipo2.getNombre());
+	                this.getEquipos().remove(this.getEquipos().indexOf(equipo1));
+	            }
+	            
+	            // Crea un nuevo partido con los detalles correctos
+	            Partido nuevoPartido = new Partido(equipo1, gol1, gol2, 90, equipo2, gol1, gol2);
+
+	            // Agrega el partido a la lista de partidos
+	            this.getPartidos().add(nuevoPartido);
+	            
+	            return nuevoPartido;    
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Error: ambos equipos deben tener al menos 11 jugadores.");
+	            return null;
+	        }
+	    }
 	}
 
 	public void DefinirGrupos() {    // creación de grupos
@@ -123,6 +126,7 @@ public class GestorEquipo {  //antes me obligaba a hacer herencia de jugador per
 	        JOptionPane.showMessageDialog(null, "No hay equipos disponibles para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
+	    
 	    // array para cuadro de dialogo
 	    String[] nombresEquipos = new String[this.getEquipos().size()];
 	    
@@ -143,19 +147,25 @@ public class GestorEquipo {  //antes me obligaba a hacer herencia de jugador per
 }
 	
 	
-	public String CantidadTotalEquipos() {
+	public String CantidadTotalEquipos() { //haciendo uso por primera vez de StringBuilder y append
+		// Se crea un objeto 'StringBuilder' llamado 'resultado'.
+	    // Este objeto se utiliza para construir una cadena de texto
 	    StringBuilder resultado = new StringBuilder("Cantidad total de equipos: " + this.getEquipos().size() + "\n");
-
+	    // Se verifica si la lista de equipos no está vacía.
 	    if (!this.getEquipos().isEmpty()) {
+	        // Si hay equipos, se añade un título a la cadena 'resultado' usando el método 'append'.
 	        resultado.append("-- Lista de Equipos --\n");
+	        // Se recorre cada equipo en la lista de equipos.
 	        for (Equipo equipo : this.getEquipos()) {
+	            // Por cada equipo, se añade su representación como cadena (toString) a 'resultado'.
 	            resultado.append(equipo).append("\n");
 	        }
 	    } else {
+	        // Si la lista de equipos está vacía, se añade un mensaje indicando que no hay equipos.
 	        resultado.append("No hay equipos registrados.");
-	    	}
-	return resultado.toString();
-}
+	    }
+	    return resultado.toString(); //retorna la cadena de texto
+	}
 	
 	
 	
