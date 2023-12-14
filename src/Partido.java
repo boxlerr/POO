@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+
 import org.example.enumeradores.Resultado;
 import java.util.Random;
 
@@ -130,8 +131,7 @@ public class Partido {
                 equipoLocal.setResultado(Resultado.ganador);
                 equipoVisitante.setResultado(Resultado.perdedor);
                 // Muestra el ganador
-                JOptionPane.showMessageDialog(null,
-                        "Ganó " + equipoLocal.getNombre(),
+                JOptionPane.showMessageDialog(null, "Ganó " + equipoLocal.getNombre(),
                         "Resultado", JOptionPane.INFORMATION_MESSAGE);
                 return equipoLocal;
             } else if (golesLocal < golesVisitante) {
@@ -141,8 +141,7 @@ public class Partido {
                 equipoLocal.setResultado(Resultado.perdedor);
                 equipoVisitante.setResultado(Resultado.ganador);
                 // Muestra el ganador
-                JOptionPane.showMessageDialog(null,
-                        "Ganó " + equipoVisitante.getNombre(),
+                JOptionPane.showMessageDialog(null,"Ganó " + equipoVisitante.getNombre(),
                         "Resultado", JOptionPane.INFORMATION_MESSAGE);
                 return equipoVisitante;
             } else {
@@ -153,10 +152,9 @@ public class Partido {
                     JOptionPane.showMessageDialog(null, "Después de " + maxIntentos + " intentos, el partido sigue empatado. Se decide por sorteo.");
                     // Realiza un sorteo para decidir el ganador
                     boolean sorteo = new Random().nextBoolean();
-                    JOptionPane.showMessageDialog(null,
-                            "El ganador por sorteo es: " + (sorteo ? equipoLocal.getNombre() : equipoVisitante.getNombre()),
-                            "Resultado Sorteo", JOptionPane.INFORMATION_MESSAGE);
-                    return sorteo ? equipoLocal : equipoVisitante;
+                    JOptionPane.showMessageDialog(null, "El ganador por sorteo es: " + (sorteo ? equipoLocal.getNombre() : equipoVisitante.getNombre()),
+                            "Resultado Sorteo", JOptionPane.INFORMATION_MESSAGE);   //operador ternario si es verdadero retorna local si no visitante
+                    return sorteo ? equipoLocal : equipoVisitante;						//mini if-else
                 }
                 // Notifica que se jugará de nuevo en caso de empate
                 JOptionPane.showMessageDialog(null,
