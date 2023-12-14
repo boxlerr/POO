@@ -1,60 +1,33 @@
 
 import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class Fase {
     //Elementos privados
-    private int numeroDeRonda;
-    private int cantidadDeEquiposenRonda;
+    
+    
     private int cantidadDeEquiposEnLlave;
     //Constructores
     public Fase() {
     }
-    public Fase(int numerodeRonda) {
-        this.numeroDeRonda = numerodeRonda;
-    }
-    public Fase(int numerodeRonda, int cantidaddeequiposenRonda, int cantidadDeEquiposEnLlave) {
-        this.numeroDeRonda = numerodeRonda;
-        this.cantidadDeEquiposenRonda = cantidaddeequiposenRonda;
+ 
+    public Fase( int cantidadDeEquiposEnLlave) {
+        
+        
         this.cantidadDeEquiposEnLlave = cantidadDeEquiposEnLlave;
     }
     //Setters and getters
-    public int getNumeroDeRonda() {
-        return numeroDeRonda;
-    }
-    public void setNumeroDeRonda(int numeroDeRonda) {
-        this.numeroDeRonda = numeroDeRonda;
-    }
-
-    public int getCantidadDeEquiposEnRonda() {
-        return cantidadDeEquiposenRonda;
-    }
-    public void setCantidadDeEquiposEnRonda(int cantidadDeEquiposenRonda) {
-        this.cantidadDeEquiposenRonda = cantidadDeEquiposenRonda;
-    }
-
+   
     public int getCantidadDeEquiposEnLlave() {
         return cantidadDeEquiposEnLlave;
     }
     public void setCantidadDeEquiposEnLlave(int cantidadDeEquiposEnLlave) {
         this.cantidadDeEquiposEnLlave = cantidadDeEquiposEnLlave;
     }
-    //Remover equipos
-    public void removerEquipos(List<Equipo> equipos){
-        int contadorEquiposPorLlave = cantidadDeEquiposEnLlave;
-
-        for(int i=0; i<contadorEquiposPorLlave; i++){
-            Equipo auxiliar=equipos.get(i);
-            if(!auxiliar.getAutorizacion()){
-                equipos.remove(auxiliar);
-                contadorEquiposPorLlave--;
-            }
-        }
-    }
+    
     //Rondas
     public void cuartosDeFinal(Llave llaveIzquierda, Llave llaveDerecha) {
         LinkedList<Equipo> ganadoresIzquierda = simularRonda(llaveIzquierda, "Cuartos de Final - Llave Izquierda");

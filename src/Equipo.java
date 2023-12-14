@@ -45,16 +45,6 @@ public class Equipo extends Jugador{
         this.cantidadGolesEnElTorneo = cantidadGolesEnElTorneo;
     }
     
-	public String obtenerInformacion() {
-		StringBuilder infoEquipo = new StringBuilder("Información del Equipo " + this.getNombre() + ":\n");
-		
-		// Mostrar la información de cada jugador en el equipo
-		for (Jugador jugador : this.getJugadores()) {
-			infoEquipo.append(jugador.toString()).append("\n");
-		}
-		
-		return infoEquipo.toString();
-	}
 
 	public boolean AgregarJugador(String nombre, String posicion, int numeroCamiseta, int edad) {
 	    Jugador nuevoJugador = new Jugador(nombre, posicion, numeroCamiseta, edad);

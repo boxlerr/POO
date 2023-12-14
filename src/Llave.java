@@ -22,9 +22,6 @@ public class Llave {
     public String getNombreDeLlave() {
         return nombreDeLlave;
     }
-    public void setNombreDeLlave(String nombreDeLlave) {
-        this.nombreDeLlave = nombreDeLlave;
-    }
 
     public void armarLlave(LinkedList<Equipo> listaGeneral, int indiceInicial){
     	LinkedList<Equipo> equiposllaves= new LinkedList<>();

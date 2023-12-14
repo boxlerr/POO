@@ -95,7 +95,7 @@ public class Main {
                 	torneito.DefinirGrupos();  //DEFINIR GRUPOS
                     break;
                 case 4:       //GESTIONAR EQUIPO
-                    String[] opcionesGestionEquipos = {"Agregar Equipo", "Eliminar Equipo", "Cantidad Total de Equipos", "Lista de Equipos", "Salir"};
+                    String[] opcionesGestionEquipos = {"Agregar Equipo", "Eliminar Equipo", "Cantidad Total de Equipos",  "Salir"};
                     int opcionGestionEquipos = 0;
                     do {
                         opcionGestionEquipos = JOptionPane.showOptionDialog(null, "Gestión de Equipos", null, 0, 0, null, opcionesGestionEquipos, opcionesGestionEquipos);
@@ -111,14 +111,11 @@ public class Main {
                             case 2:
                                 JOptionPane.showMessageDialog(null, torneito.CantidadTotalEquipos());
                                 break;
-                            case 3:
-                                JOptionPane.showMessageDialog(null, torneito.ObtenerListaEquipos());
-                                break;
                             default:
                                 JOptionPane.showMessageDialog(null, "Volviendo al menu...");
                                 break;
                         }
-                    } while (opcionGestionEquipos != 4);
+                    } while (opcionGestionEquipos != 3);
                     break;
                 case 5: //GESTION DE JUGADOR.
                 	JOptionPane.showMessageDialog(null, "Esta seccion todavia esta en beta! \n proxima actualizacion 11/12/23");

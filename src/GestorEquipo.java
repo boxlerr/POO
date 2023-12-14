@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder modificar el jugador en gestion de jugador
+public class GestorEquipo {  //antes me obligaba a hacer herencia de jugador pero no se que toque que ahora no XDDD
 
 	
 	private LinkedList<Equipo> equipos = new LinkedList<Equipo>();
@@ -24,11 +24,7 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 		this.partidos = partidos;
 	}
 
-	@Override
-	public String toString() {
-		return "GestorEquipos [equipos=" + equipos + "]";
-	}
-	
+
 	public Equipo Buscar(String nombre) {
 		for (Equipo equipo : equipos) {
 			if(equipo.getNombre().equals(nombre)) {
@@ -56,8 +52,6 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 					}
 				} while(gol1 == gol2);
 				
-				int minutos = 90;
-				
 				if (gol1 > gol2) {
 			        JOptionPane.showMessageDialog(null, "Ganó! " + equipo1.getNombre());
 			        this.getEquipos().remove(this.getEquipos().indexOf(equipo2));
@@ -66,7 +60,7 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 			        this.getEquipos().remove(this.getEquipos().indexOf(equipo1));
 			    }
 				
-				Partido nuevoPartido = new Partido(equipo1, minutos, minutos, minutos, minutos, minutos, equipo2, gol1, gol2, minutos);
+				Partido nuevoPartido = new Partido();
 				this.getPartidos().add(nuevoPartido);
 				
 				return nuevoPartido;	
@@ -164,24 +158,11 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 }
 	
 	
-	public String ObtenerListaEquipos() {
-		StringBuilder listaEquipos = new StringBuilder("--Lista de Equipos-- \n");
-		for(Equipo equipo : equipos) {
-			listaEquipos.append(equipo).append("\n");
-		}
-	return listaEquipos.toString();
-	}
 	
 	public boolean AgregarJugador(String[] nombresEquipos) {
 	    // Mostrar cuadro de diálogo para seleccionar un equipo
-	    String nombreEquipo = (String) JOptionPane.showInputDialog(
-	            null,
-	            "Seleccione un equipo:",
-	            "Selección de equipos",
-	            JOptionPane.DEFAULT_OPTION,
-	            new ImageIcon(Main.class.getResource("/img/americaa.png")),
-	            nombresEquipos,
-	            nombresEquipos[0]);
+	    String nombreEquipo = (String) JOptionPane.showInputDialog(null,"Seleccione un equipo:","Selección de equipos",JOptionPane.DEFAULT_OPTION,
+	    		new ImageIcon(Main.class.getResource("/img/americaa.png")),nombresEquipos,nombresEquipos[0]);
 
 	    // Buscar el equipo seleccionado
 	    Equipo equipoSeleccionado = Buscar(nombreEquipo);
@@ -221,14 +202,8 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 	    }
 
 	    // Elegir un equipo
-	    String nombreEquipo = (String) JOptionPane.showInputDialog(
-	            null,
-	            "Seleccione un equipo:",
-	            "Selección de equipos",
-	            JOptionPane.DEFAULT_OPTION,
-	            new ImageIcon(Main.class.getResource("/img/americaa.png")),
-	            nombresEquipos,
-	            nombresEquipos[0]);
+	    String nombreEquipo = (String) JOptionPane.showInputDialog(null,"Seleccione un equipo:","Selección de equipos",JOptionPane.DEFAULT_OPTION,
+	            new ImageIcon(Main.class.getResource("/img/americaa.png")),nombresEquipos,nombresEquipos[0]);
 
 	    // Buscar el equipo seleccionado
 	    Equipo equipoSeleccionado = Buscar(nombreEquipo);
@@ -245,14 +220,8 @@ public class GestorEquipo extends Jugador{  //tengo que usar herencia para poder
 	            }
 
 	            // Elegir un jugador
-	            String nombreJugadorModificar = (String) JOptionPane.showInputDialog(
-	                    null,
-	                    "Seleccione un jugador para modificar:",
-	                    "Modificar Jugador",
-	                    JOptionPane.QUESTION_MESSAGE,
-	                    null,
-	                    nombresJugadores,
-	                    nombresJugadores[0]);
+	            String nombreJugadorModificar = (String) JOptionPane.showInputDialog(null,"Seleccione un jugador para modificar:","Modificar Jugador",
+	                    JOptionPane.QUESTION_MESSAGE,null,nombresJugadores,nombresJugadores[0]);
 
 	            if (nombreJugadorModificar != null) {
 	                // Buscar el jugador seleccionado en el equipo
