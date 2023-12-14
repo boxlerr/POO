@@ -33,23 +33,16 @@ public class Main {
            switch (opcion) {   
            case 0: 
         	   Jugador jugador = new Jugador();
-               jugador.elegirEquipo(torneito.getEquipos()); //solucionar con la seleccion de equipor
-               //Creamos las dos llaves que contienen los equipos
-               Llave llaveDerecha = new Llave();
-               Llave llaveIzquierda = new Llave();
-               llaveDerecha.armarLlave(torneito.getEquipos(), 0);
-               llaveIzquierda.armarLlave(torneito.getEquipos(), 4);
+        	    jugador.elegirEquipo(torneito.getEquipos());
+        	    Llave llaveDerecha = new Llave();
+        	    Llave llaveIzquierda = new Llave();
+        	    llaveDerecha.armarLlave(torneito.getEquipos(), 0);
+        	    llaveIzquierda.armarLlave(torneito.getEquipos(), 4);
 
-               Fase ronda = new Fase();
-               //Cuartos de final
-               ronda.cuartosDeFinal(llaveIzquierda,llaveDerecha);
-               jugador.sumarPuntos();
-               //Semifinal
-               ronda.semifinal(llaveIzquierda,llaveDerecha);
-               jugador.sumarPuntos();
-               //Final
-               ronda.finalDelTorneo(llaveIzquierda,llaveDerecha);
-               jugador.sumarPuntos();
+        	    Fase ronda = new Fase();
+        	    ronda.cuartosDeFinal(llaveIzquierda, llaveDerecha);
+        	    jugador.sumarPuntos();
+        	    // Las semifinales y la final se manejan internamente en Fase
         	   
           break;
            case 1:    //JUGAR DOPARTI

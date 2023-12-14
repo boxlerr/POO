@@ -1,5 +1,9 @@
 
 import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Fase {
@@ -53,50 +57,65 @@ public class Fase {
     }
     //Rondas
     public void cuartosDeFinal(Llave llaveIzquierda, Llave llaveDerecha) {
-        this.numeroDeRonda = 1;
-        this.cantidadDeEquiposEnLlave =4;
-        Partido partido = new Partido(null, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, null, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave);
-        JOptionPane.showMessageDialog(null,
-                "Se jugarán los cuartos de finales",
-                "Cuartos", JOptionPane.INFORMATION_MESSAGE);
-
-        for (int i = 0; i< cantidadDeEquiposEnLlave; i+=2){
-            partido.simularPartido(llaveIzquierda.getEquiposDeLlave().get(i),
-                    llaveIzquierda.getEquiposDeLlave().get(i+1));
-            partido.simularPartido(llaveDerecha.getEquiposDeLlave().get(i),
-                    llaveDerecha.getEquiposDeLlave().get(i+1));
-        }
-        removerEquipos(llaveIzquierda.getEquiposDeLlave());
-        removerEquipos(llaveDerecha.getEquiposDeLlave());
-        this.cantidadDeEquiposEnLlave =2;
+        LinkedList<Equipo> ganadoresIzquierda = simularRonda(llaveIzquierda, "Cuartos de Final - Llave Izquierda");
+        LinkedList<Equipo> ganadoresDerecha = simularRonda(llaveDerecha, "Cuartos de Final - Llave Derecha");
+        JOptionPane.showMessageDialog(null, "Los cuartos de final han concluido. Avanzando a las semifinales.", "Progreso del Torneo", JOptionPane.INFORMATION_MESSAGE);
+        semifinal(ganadoresIzquierda, ganadoresDerecha);
     }
 
-    public void semifinal(Llave llaveIzquierda, Llave llaveDerecha){
-        this.numeroDeRonda =2;
-        JOptionPane.showMessageDialog(null, "Se jugará la semifinal.",
-                "Semifinal", JOptionPane.INFORMATION_MESSAGE);
-        
-        Partido partido= new Partido(null, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, null, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave);
-        for (int i = 0; i< cantidadDeEquiposEnLlave; i+=2) {
-            partido.simularPartido(llaveIzquierda.getEquiposDeLlave().get(i),
-                    llaveIzquierda.getEquiposDeLlave().get(i+1));
-            partido.simularPartido(llaveDerecha.getEquiposDeLlave().get(i),
-                    llaveDerecha.getEquiposDeLlave().get(i+1));
-        }
-        removerEquipos(llaveDerecha.getEquiposDeLlave());
-        removerEquipos(llaveIzquierda.getEquiposDeLlave());
+    public void semifinal(LinkedList<Equipo> ganadoresIzquierda, LinkedList<Equipo> ganadoresDerecha) {
+        LinkedList<Equipo> finalistasIzquierda = simularRonda(new Llave("Semifinal - Llave Izquierda", ganadoresIzquierda), "Semifinal - Llave Izquierda");
+        LinkedList<Equipo> finalistasDerecha = simularRonda(new Llave("Semifinal - Llave Derecha", ganadoresDerecha), "Semifinal - Llave Derecha");
+        JOptionPane.showMessageDialog(null, "Las semifinales han concluido. Avanzando a la final.", "Progreso del Torneo", JOptionPane.INFORMATION_MESSAGE);
+        finalDelTorneo(finalistasIzquierda.getFirst(), finalistasDerecha.getFirst());
     }
-    public void finalDelTorneo(Llave llaveIzquierda, Llave llaveDerecha) {
-        this.numeroDeRonda = 3;
-        JOptionPane.showMessageDialog(null,
-                "Se jugará la final.",
-                "Final",
-                JOptionPane.INFORMATION_MESSAGE);
-        Partido partido = new Partido(null, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, null, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave, cantidadDeEquiposEnLlave);
 
-        Equipo equipo = partido.simularPartido(llaveDerecha.getEquiposDeLlave().get(0), llaveIzquierda.getEquiposDeLlave().get(0));
+    public void finalDelTorneo(Equipo equipo1, Equipo equipo2) {
+        mostrarPartido(equipo1, equipo2, "Final");
+        Equipo ganador = new Partido().simularPartido(equipo1, equipo2);
+        mostrarGanador(ganador);
+    }
 
-        JOptionPane.showMessageDialog(null, "El ganador del torneo es: "+equipo.getNombre(),
-                "Ganador del torneo", JOptionPane.INFORMATION_MESSAGE);
+    private LinkedList<Equipo> simularRonda(Llave llave, String tituloRonda) {
+        LinkedList<Equipo> ganadores = new LinkedList<>();
+        for (int i = 0; i < llave.getEquiposDeLlave().size(); i += 2) {
+            Equipo equipo1 = llave.getEquiposDeLlave().get(i);
+            Equipo equipo2 = llave.getEquiposDeLlave().get(i + 1);
+            mostrarPartido(equipo1, equipo2, tituloRonda + " - Partido " + (i/2 + 1));
+            ganadores.add(new Partido().simularPartido(equipo1, equipo2));
+        }
+        return ganadores;
+    }
+
+    private void mostrarPartido(Equipo equipo1, Equipo equipo2, String tituloPartido) {
+        JPanel panel = new JPanel(new GridLayout(1, 3));
+        panel.add(crearPanelEquipo(equipo1));
+        panel.add(new JLabel("VS", SwingConstants.CENTER));
+        panel.add(crearPanelEquipo(equipo2));
+
+        JOptionPane.showMessageDialog(null, panel, tituloPartido, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private JPanel crearPanelEquipo(Equipo equipo) {
+        JPanel panelEquipo = new JPanel(new BorderLayout());
+        ImageIcon iconEquipo = loadImageIcon("/img/" + equipo.getNombre() + ".png");
+        if (iconEquipo != null) {
+            panelEquipo.add(new JLabel(iconEquipo), BorderLayout.CENTER);
+        }
+        panelEquipo.add(new JLabel(equipo.getNombre(), SwingConstants.CENTER), BorderLayout.SOUTH);
+        return panelEquipo;
+    }
+
+    private void mostrarGanador(Equipo ganador) {
+        JOptionPane.showMessageDialog(null, crearPanelEquipo(ganador), "El ganador del torneo es: " + ganador.getNombre() + "Campeon!!!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private ImageIcon loadImageIcon(String path) {
+        try {
+            return new ImageIcon(getClass().getResource(path));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

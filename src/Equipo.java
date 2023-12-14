@@ -45,10 +45,6 @@ public class Equipo extends Jugador{
         this.cantidadGolesEnElTorneo = cantidadGolesEnElTorneo;
     }
     
-	@Override
-	public String toString() {
-		return "  " + nombre + "  " ;
-	}
 	public String obtenerInformacion() {
 		StringBuilder infoEquipo = new StringBuilder("Información del Equipo " + this.getNombre() + ":\n");
 		
@@ -75,5 +71,9 @@ public class Equipo extends Jugador{
 			int aleatorio = (int)(Math.random()*4);
 			this.getJugadores().add(new Jugador("Jugador: " + i,posicion[aleatorio],i,4));
 		}
+	}
+	@Override
+	public String toString() {
+		return "  " + nombre + "  " ;
 	}
 }

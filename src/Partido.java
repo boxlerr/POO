@@ -16,7 +16,9 @@ public class Partido {
     private int golesLocal= new Random().nextInt(1,10);
     private int golesVisitante = new Random().nextInt(1,10);
 	
-	
+    public Partido() { //para no usar los contructores
+    }
+    
 	public Partido(Equipo equipo1, int goleslocal, int golesVisitante,int numerodeRonda, int cantidaddeequiposenRonda, int cantidadDeEquiposEnLlave, Equipo equipo2, int gol1, int gol2, int duracion) {
 		super();
 		this.equipo1 = equipo1;
@@ -100,45 +102,55 @@ public class Partido {
         this.golesVisitante = golesVisitante;
     }
 	
-	public Equipo simularPartido(Equipo equipoLocal, Equipo equipoVisitante) {
-        JOptionPane.showMessageDialog(null,
-                equipoLocal.getNombre() + " " + this.getGoleslocal() + " - " + this.getGolesVisitante() + " " + equipoVisitante.getNombre(),
-                "Resultado", JOptionPane.INFORMATION_MESSAGE);
+    public Equipo simularPartido(Equipo equipoLocal, Equipo equipoVisitante) {
+        int intentos = 0;
+        int maxIntentos = 3; // Máximo número de intentos para desempate
 
-        equipoLocal.sumarGolesNuevos(this.getGoleslocal());
-        equipoVisitante.sumarGolesNuevos(this.getGolesVisitante());
+        while (true) {
+            int golesLocal = new Random().nextInt(1, 10);
+            int golesVisitante = new Random().nextInt(1, 10);
 
-        //Aquí tendremos las 3 opciones que puede tener nuestro torneo:
-        // gana equipo local, empate o gana visitante.
+            JOptionPane.showMessageDialog(null,
+                    equipoLocal.getNombre() + " " + golesLocal + " - " + golesVisitante + " " + equipoVisitante.getNombre(),
+                    "Resultado", JOptionPane.INFORMATION_MESSAGE);
 
-        if (this.golesLocal > this.golesVisitante) {
-            equipoVisitante.setAutorizacion((false));
-            equipoLocal.setResultado(ganador);
-            equipoVisitante.setResultado(perdedor);
-            JOptionPane.showMessageDialog(null,
-                    "Ganó " + equipoLocal.getNombre(),
-                    "Resultado", JOptionPane.INFORMATION_MESSAGE);
-            return equipoLocal;
+            equipoLocal.sumarGolesNuevos(golesLocal);
+            equipoVisitante.sumarGolesNuevos(golesVisitante);
+
+            if (golesLocal > golesVisitante) {
+                equipoVisitante.setAutorizacion(false);
+                equipoLocal.setResultado(ganador);
+                equipoVisitante.setResultado(perdedor);
+                JOptionPane.showMessageDialog(null,
+                        "Ganó " + equipoLocal.getNombre(),
+                        "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                return equipoLocal;
+            } else if (golesLocal < golesVisitante) {
+                equipoLocal.setAutorizacion(false);
+                equipoLocal.setResultado(perdedor);
+                equipoVisitante.setResultado(ganador);
+                JOptionPane.showMessageDialog(null,
+                        "Ganó " + equipoVisitante.getNombre(),
+                        "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                return equipoVisitante;
+            } else {
+                intentos++;
+                if (intentos >= maxIntentos) {
+                    // Decide qué hacer en caso de empates repetidos
+                    JOptionPane.showMessageDialog(null, "Después de " + maxIntentos + " intentos, el partido sigue empatado. Se decide por sorteo.");
+                    boolean sorteo = new Random().nextBoolean();
+                    JOptionPane.showMessageDialog(null,
+                            "El ganador por sorteo es: " + (sorteo ? equipoLocal.getNombre() : equipoVisitante.getNombre()),
+                            "Resultado Sorteo", JOptionPane.INFORMATION_MESSAGE);
+                    return sorteo ? equipoLocal : equipoVisitante;
+                }
+                JOptionPane.showMessageDialog(null,
+                        "Empate, se jugará de nuevo entre " + equipoLocal.getNombre() + " y " + equipoVisitante.getNombre(),
+                        "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
-        else if (this.golesLocal == this.golesVisitante) {
-            JOptionPane.showMessageDialog(null,
-                    "Se jugara el desempate entre " + equipoLocal.getNombre() + " - " + equipoVisitante.getNombre(),
-                    "Resultado", JOptionPane.INFORMATION_MESSAGE);
-            equipoLocal.setResultado(empate);
-            equipoVisitante.setResultado(empate);
-            simularPartido(equipoLocal, equipoVisitante);
-        }
-        else {
-            equipoLocal.setAutorizacion(false);
-            equipoLocal.setResultado(perdedor);
-            equipoVisitante.setResultado(ganador);
-            JOptionPane.showMessageDialog(null,
-                    "Ganó " + equipoVisitante.getNombre(),
-                    "Resultado", JOptionPane.INFORMATION_MESSAGE);
-            return equipoVisitante;
-        }
-        return null;
     }
+
 
 	@Override
 	public String toString() {
